@@ -1,0 +1,35 @@
+<!-- Template for the search page
+	
+	There should be one of these for each kind of entity.
+
+	Notice that the "Search" button calls the sendRequest() function in the main.js javascript. The sendRequest function shoudld take data from the form and send a get request to a URL of the following form:
+		../search.php?type=staff&name=lucy...
+	So that it's consistent I think we should use the exact attribute names from our proprosal:
+	https://docs.google.com/document/d/1HK8APhki0GuyoQGJJIHbd8eqtZAC9uDKjxVpmy0aDwo/edit
+	But take out all the '_' so that phone_num becomes phonenum, for example.
+
+-->
+
+<head>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/normalize.min.css">
+</head>
+
+<div class="container">
+	<h1>Search</h1>
+	Form
+	<br>
+	<form>
+	Funds Requested: <input name="funds" type="text" size="30" maxlength="60" /> 
+	<span id="funds_requested"></span><br />
+	<!-- right now it says sendRequest with a parameter because I was testing with php, you can remove this to make it just sendRequest() but your javascript function should take form data and create the correct request. -->
+	<button type='button' id='delete-itinerary' class='btn btn-default' onclick="sendRequest(this.form.funds.value)">Search</button>
+
+	</form>
+	<br>
+	Results
+	<div id="results"><!-- Make sure you have this div here! I will populate it with the results using php --></div>
+</div>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
