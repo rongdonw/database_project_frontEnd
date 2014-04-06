@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)http://getbootstrap.com/2.3.2/examples/starter-template.html# -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Residence Expense Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://getbootstrap.com/2.3.2/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://getbootstrap.com/2.3.2/assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://getbootstrap.com/2.3.2/assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="http://getbootstrap.com/2.3.2/assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="http://getbootstrap.com/2.3.2/assets/ico/favicon.png">
+  </head>
+
+  <body>
+
+   <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="index.html">Residence Manager</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="index.html">Home</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="residence_hall.html">Residence Hall</a></li>
+                  <li><a href="staff.html">Staffs</a></li>
+                  <li class="divider"></li>
+                  <li><a href="budget.html">Budget</a></li>
+                  <li><a href="program.html">Program</a></li>
+                  <li class="active"><a href="expense_form.html">Expense Form</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+<div class='container' id="tabs">
+    <ul class="nav nav-tabs" id="tabsnav">
+        <li><a href="#addExpenseDiv" class="menu-internal">Add Expense Form</a></li>
+        <li><a href="#searchExpenseDiv" class="menu-internal">Search Expense Form</a></li>
+    </ul>
+    
+    <div class='container' id='addExpenseDiv'>
+     <h1>Add Expense Form</h1>
+    <br>
+    <form class="form-horizontal" >
+        <div class="control-group">
+        <label class="control-label" for="form_number">Form Number</label>
+            <div class="controls">
+                <input type="number" id="form_number" placeholder="Form #">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="date">Date</label>
+            <div class="controls">
+                <input type="date" id="date" placeholder="Date">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="vendor">Vendor</label>            
+            <div class="controls">
+                <input type="text" id="vendor" placeholder="Vendor">
+            </div>
+        </div> 
+        <div class="control-group">
+            <label class="control-label" for="max_amount">Max Amount</label>            
+            <div class="controls">
+                <span class="add-on">$</span>
+                <input class="span2" type="number" id="max_amount" placeholder="Max Amount">
+            </div>
+        </div>    
+        <div class="control-group">
+            <label class="control-label" for="amount_spent">Amount Spent</label>            
+            <div class="controls">
+                <span class="add-on">$</span>
+                <input class="span2" type="number" id="amount_spent" placeholder="Amount Spent">
+            </div>
+        </div>  
+        <div class="control-group">
+            <label class="control-label" for="items_purchased">Purchased Items</label>            
+            <div class="controls">
+                <input type="text" id="items_purchased" placeholder="Purchased Items">
+            </div>
+        </div> 
+        
+        <div class="control-group">
+            <div class="controls">
+                <button type="button" class="btn" onclick="addExpenseFormRequest()">Add</button>
+            </div>
+        </div>
+    </form>
+    </div>  
+    
+    <div class='container' id='searchExpenseDiv'>
+        <h1>Search Expense</h1>
+        <br>
+        <form class="form-horizontal" >
+        <div class="control-group">
+        <label class="control-label" for="search_form_number">Form Number</label>
+            <div class="controls">
+                <input type="text" id="search_form_number" placeholder="Form #">
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <div class="controls">
+                <button type="button" class="btn" onclick="searchExpenseFormRequest()">Search</button>
+            </div>
+        </div>
+        </form>  
+    </div>
+    
+</div>
+        
+    <br>
+    <div class="container" id="results"><!-- Make sure you have a results div in all your pages. From the backend, I will fill in the results div after       users click add or search. -->
+               <p>Results</p> 
+    </div>
+
+      
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap-transition.js"></script>
+    <script src="js/bootstrap-alert.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="js/bootstrap-scrollspy.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-button.js"></script>
+    <script src="js/bootstrap-collapse.js"></script>
+    <script src="js/bootstrap-carousel.js"></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+      
+    <script src="js/main.js"></script>
+      
+    <script>
+        jQuery(document).ready(function() {
+        jQuery('#tabs > div').hide(); // hide all child divs
+        jQuery('#tabs div:first').show(); // show first child dive
+        jQuery('#tabsnav li:first').addClass('active');
+
+        jQuery('.menu-internal').click(function(){
+            jQuery('#tabsnav li').removeClass('active');
+            var currentTab = jQuery(this).attr('href');
+            jQuery('#tabsnav li a[href="'+currentTab+'"]').parent().addClass('active');
+            jQuery('#tabs > div').hide();
+            jQuery(currentTab).show();
+            return false;
+            });
+        });
+            
+    </script>
+  
+
+</body></html>
