@@ -8,7 +8,7 @@ if (isset($_GET['type'])) {
 	$c = oci_connect ('lh2574', 'project', 'w4111b.cs.columbia.edu:1521/adb') OR die('Unable to connect to the database. Error: <pre>' . print_r(oci_error(),1) . '</pre>');
 	
 	// Define the query.
-	$q = "SELECT hall_name FROM '{$_GET['type']}' WHERE FUNDS_REQUESTED='{$_GET['funds_requested']}'";
+	$q = "SELECT hall_name FROM '{$_GET['type']}'";
 
 	// Parse the query.
 	$s = oci_parse($c, $q);

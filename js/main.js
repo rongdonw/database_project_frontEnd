@@ -234,7 +234,7 @@ function populateHallNames(){
     // Pass the email address in the URL.
     alert("sent");
     // example of a get request for funds_requested = 150
-    http.open('get', '../populate.php?type=hall_names');
+    http.open('get', 'populate.php?type=residence_hall');
     http.onreadystatechange = handleDropdownResponse('hall_name_dropdown');
     http.send(null);
 }
