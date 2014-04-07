@@ -8,28 +8,27 @@ if (isset($_GET['type'])) {
 	$c = oci_connect ('lh2574', 'project', 'w4111b.cs.columbia.edu:1521/adb') OR die('Unable to connect to the database. Error: <pre>' . print_r(oci_error(),1) . '</pre>');
 	
 	// Define the query.
-	$q = "SELECT hall_name FROM '{$_GET['type']}'";
+	$q = "SELECT hall_name FROM residence_hall";
 
 	// Parse the query.
 	$s = oci_parse($c, $q);
 	
 	// Initialize the PHP variable:
-	$rows = 0;
+	//$rows = array();
 
 	// Bind the output to $rows:
-	oci_define_by_name($s, "hall_name", $rows);
+	//oci_define_by_name($s, "halls", $rows);
 
 	// Execute the query.
 	oci_execute($s);
 	
-	// Fetch the results.
-	oci_fetch($s);
-	
 	$out = "";
 
-	foreach ($rows as $hall) {
+	// Fetch the results.
+	while(oci_fetch($s)) {
+		$hall = trim(oci_result($s, 'HALL_NAME'));
 		$newoption = "<option value='" . $hall . "'>" . $hall . "</option>";
-		$out .= $newoption;
+		$out .= $newoption;	
 	}
 
 	// Close the connection.
