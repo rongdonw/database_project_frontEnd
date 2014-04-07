@@ -89,8 +89,8 @@
             </div>
         </div> 
         <div class="control-group">
-            <label class="control-label" for="hall_name">Hall Name</label>    
-                <select class="form-control" id="hall_name">
+            <label class="control-label" for="hall_name_dropdown">Hall Name</label>    
+                <select class="form-control" id="hall_name_dropdown">
                     <option value='Hall 1'>Hall 1</option>
                     <option value ='Hall 2'>Hall 2</option>
                     <option value='Hall 3'>Hall 3</option>
@@ -229,6 +229,7 @@
       
     <script>
         jQuery(document).ready(function() {
+        populateHallNames();
         jQuery('#tabs > div').hide(); // hide all child divs
         jQuery('#tabs div:first').show(); // show first child dive
         jQuery('#tabsnav li:first').addClass('active');

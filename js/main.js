@@ -224,4 +224,29 @@ function searchExpenseFormRequest(){
     var search_form_number = document.getElementById("search_form_number").value;
 }
 
+// Populate dropdowns ============================
+
+function populateHallNames(){
+    alert("populateHallNames()");
+    
+    // Call the script.
+    // Use the GET method.
+    // Pass the email address in the URL.
+    alert("sent");
+    // example of a get request for funds_requested = 150
+    http.open('get', '../populate.php?type=hall_names');
+    http.onreadystatechange = handleDropdownResponse('hall_names_dropdown');
+    http.send(null);
+}
+
+// Function handles the response from the PHP script.
+function handleDropdownResponse(id) {
+    // If everything's okay:
+    alert(http.readyState);
+    alert(http.responseText);
+    if(http.readyState == 4){
+        // Assign the returned value to the document object.
+        document.getElementById(id).innerHTML = http.responseText;
+    }
+}
 
