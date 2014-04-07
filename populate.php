@@ -19,6 +19,12 @@ if (isset($_GET['type'])) {
 	// Bind the output to $rows:
 	oci_define_by_name($s, "hall_name", $rows);
 
+	// Execute the query.
+	oci_execute($s);
+	
+	// Fetch the results.
+	oci_fetch($s);
+	
 	$out = "";
 
 	foreach ($rows as $hall) {
@@ -26,12 +32,6 @@ if (isset($_GET['type'])) {
 		$out .= $newoption;
 	}
 
-	// Execute the query.
-	oci_execute($s);
-	
-	// Fetch the results.
-	oci_fetch($s);
-	
 	// Close the connection.
 	oci_close($c);
 
