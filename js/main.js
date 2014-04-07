@@ -235,7 +235,7 @@ function populateHallNames(){
     alert("sent");
     // example of a get request for funds_requested = 150
     http.open('get', '../populate.php?type=hall_names');
-    http.onreadystatechange = handleDropdownResponse('hall_names_dropdown');
+    http.onreadystatechange = handleDropdownResponse('hall_name_dropdown');
     http.send(null);
 }
 
