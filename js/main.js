@@ -226,27 +226,20 @@ function searchExpenseFormRequest(){
 
 // Populate dropdowns ============================
 
+
+
 function populateHallNames(){
-    alert("populateHallNames()");
+    var http = createRequestObject();
     
-    // Call the script.
-    // Use the GET method.
-    // Pass the email address in the URL.
-    alert("sent");
     // example of a get request for funds_requested = 150
-    http.open('get', 'populate.php?type=residence_hall');
-    http.onreadystatechange = handleDropdownResponse('hall_name_dropdown');
+    http.open('get', 'populate.php?type=residence_hall',true);
+    http.onreadystatechange = function(){
+        if(http.readyState == 4){
+            // Assign the returned value to the document object.
+            document.getElementById('hall_name_dropdown').innerHTML = http.responseText;
+        }
+    }
     http.send(null);
 }
 
-// Function handles the response from the PHP script.
-function handleDropdownResponse(id) {
-    // If everything's okay:
-    alert(http.readyState);
-    alert(http.responseText);
-    if(http.readyState == 4){
-        // Assign the returned value to the document object.
-        document.getElementById(id).innerHTML = http.responseText;
-    }
-}
 
