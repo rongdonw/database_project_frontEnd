@@ -1,3 +1,5 @@
+// Main js
+
 function createRequestObject() {
     var ro;
     if (navigator.appName == "Microsoft Internet Explorer") {
@@ -90,8 +92,6 @@ function addResidenceRequest() {
         + document.getElementById('num_residents').value + " "
         + document.getElementById('num_lounges').value + " "
         + CA_sid);
-    
-    
     
     if (validateAddResidenceRequest()){
         http.open('put', '../ajax.php?hallname=' + document.getElementById('hall_name').value
