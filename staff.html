@@ -165,6 +165,12 @@
                 <input type="text" id="search_staff_hall" placeholder="Hall Name">
             </div>
         </div>
+        <div class="control-group">
+            <label class="control-label" for="search_room_num">Room Num</label>
+            <div class="controls">
+                <input type="number" id="search_room_num" placeholder="Room #">
+            </div>
+        </div>
         
         <div class="radio control-group">
             <label>
@@ -233,13 +239,14 @@
             jQuery(currentTab).show();
             return false;
             });
-                    
-        });
         
         jQuery('#floors_managed_div').hide();
         jQuery('#num_residents_div').hide();
         jQuery('#CA_sid_div').hide();
         jQuery('#addRAButton_div').hide();
+            
+                    
+        });
         
         function showAddCA(){
             //hide addRA section

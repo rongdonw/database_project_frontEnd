@@ -135,6 +135,7 @@ function searchStaffRequest(){
     alert("searchStaffRequest()");
     var staffName = document.getElementById("search_staff_name").value;
     var staffHallName = document.getElementById("search_staff_hall").value;
+    var search_room_num = document.getElementById("search_room_num").value;
     
     //whether user wants to search ca
     var ca_selected = document.getElementById("optionsCA").checked;
@@ -190,6 +191,7 @@ function addBudgetRequest(){
 
 function searchBudgetRequest(){
     var search_budget_name = document.getElementById("search_budget_name").value;
+    var search_owner_name = document.getElementById("search_owner_name").value;
 
 }
 
@@ -208,7 +210,9 @@ function addProgramRequest(){
     
 function searchProgramRequest(){
     var search_event_name = document.getElementById("search_event_name").value;
-    alert(search_event_name);
+    var search_event_startDate = document.getElementById("search_event_startDate").value;
+    var search_event_endDate = document.getElementById("search_event_endDate").value;
+    var search_organizer_name = document.getElementById("search_organizer_name").value;
 }
 
 function addExpenseFormRequest(){
@@ -220,9 +224,18 @@ function addExpenseFormRequest(){
     var items_purchased = document.getElementById("items_purchased").value;
 }
 
-function searchExpenseFormRequest(){
+function searchExpenseFormByFormNumberRequest(){
     var search_form_number = document.getElementById("search_form_number").value;
 }
+
+function searchExpenseFormByOtherCriteriaRequest(){
+    var search_start_date = document.getElementById("search_start_date").value;
+    var search_end_date = document.getElementById("search_end_date").value;
+    var search_staff_name = document.getElementById("search_staff_name").value;
+    var outstanding = document.getElementById("outstanding").checked;
+    alert(outstanding);
+}
+
 
 // Populate dropdowns ============================
 

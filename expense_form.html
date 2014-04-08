@@ -121,18 +121,67 @@
         <h1>Search Expense</h1>
         <br>
         <form class="form-horizontal" >
+        
+        <div class="btn-group">
+            <button type="button" class="btn btn-default" onclick="showFormNumberSearch()">By Form Number</button>
+            <button type="button" class="btn btn-default" onclick="showOtherSearch()">By Other Criteria </button>
+        </div>
+        
+        <br>
+        <br>
+        
+        <div id="search_form_number_div">
         <div class="control-group">
         <label class="control-label" for="search_form_number">Form Number</label>
             <div class="controls">
                 <input type="text" id="search_form_number" placeholder="Form #">
             </div>
         </div>
-        
-        <div class="control-group">
+         <div class="control-group">
             <div class="controls">
-                <button type="button" class="btn" onclick="searchExpenseFormRequest()">Search</button>
+                <button type="button" class="btn" onclick="searchExpenseFormByFormNumberRequest()">Search</button>
+            </div>
+         </div>
+        </div>
+        
+        
+        <div id="search_other_div">
+        <div class="control-group">
+        <label class="control-label" for="search_start_date">Start Date</label>
+            <div class="controls">
+                <input type="date" id="search_start_date">
             </div>
         </div>
+        
+        <div class="control-group">
+        <label class="control-label" for="search_end_date">End Date</label>
+            <div class="controls">
+                <input type="date" id="search_end_date">
+            </div>
+        </div>
+        
+        <div class="control-group">
+        <label class="control-label" for="search_staff_name">Staff Name</label>
+            <div class="controls">
+                <input type="text" id="search_staff_name" placeholder="Staff Name">
+            </div>
+        </div>
+    
+        <div class="checkbox control-group">
+            <label>
+                <input type="checkbox" id="outstanding" value="">
+                OutStanding
+            </label>
+        </div>
+            
+         <div class="control-group">
+            <div class="controls">
+                <button type="button" class="btn" onclick="searchExpenseFormByOtherCriteriaRequest()">Search</button>
+            </div>
+         </div>        
+        </div>
+        
+       
         </form>  
     </div>
     
@@ -170,6 +219,9 @@
         jQuery('#tabs > div').hide(); // hide all child divs
         jQuery('#tabs div:first').show(); // show first child dive
         jQuery('#tabsnav li:first').addClass('active');
+        
+        jQuery('#search_other_div').hide();
+        
 
         jQuery('.menu-internal').click(function(){
             jQuery('#tabsnav li').removeClass('active');
@@ -180,6 +232,24 @@
             return false;
             });
         });
+        
+        function showFormNumberSearch(){
+            //hide search by other criteria
+            jQuery('#search_other_div').hide();
+
+            //show search by form number
+            jQuery('#search_form_number_div').show();
+            
+        }
+        
+        function showOtherSearch(){
+            //hide search by form number 
+            jQuery('#search_form_number_div').hide();
+
+            //show search by other criteria
+            jQuery('#search_other_div').show();
+            
+        }
             
     </script>
   
