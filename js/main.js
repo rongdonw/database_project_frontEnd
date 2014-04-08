@@ -94,11 +94,11 @@ function addResidenceRequest() {
         + CA_sid);
     
     if (validateAddResidenceRequest()){
-        http.open('put', '../ajax.php?hallname=' + document.getElementById('hall_name').value
+        http.open('post', '../add.php?type=Residence_Hall&hallname=' + document.getElementById('hall_name').value
                               +  '&address=' + document.getElementById('address').value
                               +  '&numresidents=' + document.getElementById('num_residents').value
                               +  '&numlounges=' + document.getElementById('num_lounges').value
-                              +  '&CAsid=' + document.getElementById('CA_sid').value);
+                              +  '&CAsid=' + document.getElementById('CA_sid_dropdown').value);
                             
         http.onreadystatechange = handlePutResponse;
         http.send(null);
