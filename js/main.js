@@ -244,11 +244,25 @@ function populateHallNames(){
     var http = createRequestObject();
     
     // example of a get request for funds_requested = 150
-    http.open('get', 'populate.php?type=Residence_Hall&field=HALL_NAME',true);
+    http.open('get', 'populate.php?type=Residence_Hall&label=HALL_NAME&value=HALL_NAME',true);
     http.onreadystatechange = function(){
         if(http.readyState == 4){
             // Assign the returned value to the document object.
             document.getElementById('hall_name_dropdown').innerHTML = http.responseText;
+        }
+    }
+    http.send(null);
+}
+
+function populateStaff(){
+    var http = createRequestObject();
+    
+    // example of a get request for funds_requested = 150
+    http.open('get', 'populate.php?type=Staff_Member&label=NAME&value=SID',true);
+    http.onreadystatechange = function(){
+        if(http.readyState == 4){
+            // Assign the returned value to the document object.
+            document.getElementById('sid_dropdown').innerHTML = http.responseText;
         }
     }
     http.send(null);

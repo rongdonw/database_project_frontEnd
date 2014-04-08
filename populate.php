@@ -6,21 +6,21 @@
 
 	$out = "";	
 
-	if ($_GET['type'] == 'Residence_Hall') {
+	if ($_GET['type'] == 'Residence_Hall' || $_GET['type'] == 'Staff_Member') {
 		// Define the query.
-		$q = "SELECT {$_GET['field']} FROM {$_GET['type']}";
+		$q = "SELECT {$_GET['label']}, {$_GET['value']} FROM {$_GET['type']}";
 
 		// Parse the query.
 		$s = oci_parse($c, $q);
 
 		// Execute the query.
 		oci_execute($s);
-		
 
 		// Fetch the results.
 		while(oci_fetch($s)) {
-			$hall = trim(oci_result($s, $_GET['field']));
-			$newoption = "<option value='" . $hall . "'>" . $hall . "</option>";
+			$label = trim(oci_result($s, $_GET['label']));
+			$value = trim(oci_result($s, $_GET['value']));
+			$newoption = "<option value='" . $value . "'>" . $label . "</option>";
 			$out .= $newoption;	
 		}
 	}
@@ -44,7 +44,6 @@
 			$out .= $newoption;	
 		}
 	}
-
 
 	// Close the connection.
 	oci_close($c);
