@@ -91,11 +91,6 @@
         <div class="control-group">
             <label class="control-label" for="hall_name_dropdown">Hall Name</label>    
                 <select class="form-control" id="hall_name_dropdown">
-                    <option value='Hall 1'>Hall 1</option>
-                    <option value ='Hall 2'>Hall 2</option>
-                    <option value='Hall 3'>Hall 3</option>
-                    <option value='Hall 4'>Hall 4</option>
-                    <option value='Hall 5'>Hall 5</option>
             </select>
         </div>  
         
@@ -134,13 +129,8 @@
         </div> 
         
         <div class="control-group" id="CA_sid_div">
-            <label class="control-label" for="CA_sid">CA</label>    
-                <select class="form-control" id="CA_sid">
-                    <option value='12345'>Tom</option>
-                    <option value ='23456'>Lucy</option>
-                    <option value='34567'>Johon</option>
-                    <option value='45678'>Jow</option>
-                    <option value='56789'>Mary</option>
+            <label class="control-label" for="CA_sid_dropdown">CA</label>    
+                <select class="form-control" id="CA_sid_dropdown">
             </select>
         </div>  
         
@@ -229,7 +219,8 @@
       
     <script>
         jQuery(document).ready(function() {
-        populateHallNames();
+    	populateCAs();
+	    populateHallNames();
         jQuery('#tabs > div').hide(); // hide all child divs
         jQuery('#tabs div:first').show(); // show first child dive
         jQuery('#tabsnav li:first').addClass('active');

@@ -227,12 +227,11 @@ function searchExpenseFormRequest(){
 // Populate dropdowns ============================
 
 
-
 function populateHallNames(){
     var http = createRequestObject();
     
     // example of a get request for funds_requested = 150
-    http.open('get', 'populate.php?type=residence_hall',true);
+    http.open('get', 'populate.php?type=Residence_Hall&field=HALL_NAME',true);
     http.onreadystatechange = function(){
         if(http.readyState == 4){
             // Assign the returned value to the document object.
@@ -241,5 +240,21 @@ function populateHallNames(){
     }
     http.send(null);
 }
+
+function populateCAs(){
+    var http = createRequestObject();
+    
+    // example of a get request for funds_requested = 150
+    http.open('get', 'populate.php?type=Community_Advisor',true);
+    http.onreadystatechange = function(){
+        if(http.readyState == 4){
+            // Assign the returned value to the document object.
+            document.getElementById('CA_sid_dropdown').innerHTML = http.responseText;
+        }
+    }
+    http.send(null);
+}
+
+
 
 
