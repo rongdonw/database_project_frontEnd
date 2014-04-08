@@ -224,9 +224,18 @@ function addExpenseFormRequest(){
     var items_purchased = document.getElementById("items_purchased").value;
 }
 
-function searchExpenseFormRequest(){
+function searchExpenseFormByFormNumberRequest(){
     var search_form_number = document.getElementById("search_form_number").value;
 }
+
+function searchExpenseFormByOtherCriteriaRequest(){
+    var search_start_date = document.getElementById("search_start_date").value;
+    var search_end_date = document.getElementById("search_end_date").value;
+    var search_staff_name = document.getElementById("search_staff_name").value;
+    var outstanding = document.getElementById("outstanding").checked;
+    alert(outstanding);
+}
+
 
 // Populate dropdowns ============================
 
