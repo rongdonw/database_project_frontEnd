@@ -1,3 +1,5 @@
+// Main js
+
 function createRequestObject() {
     var ro;
     if (navigator.appName == "Microsoft Internet Explorer") {
@@ -90,8 +92,6 @@ function addResidenceRequest() {
         + document.getElementById('num_residents').value + " "
         + document.getElementById('num_lounges').value + " "
         + CA_sid);
-    
-    
     
     if (validateAddResidenceRequest()){
         http.open('put', '../ajax.php?hallname=' + document.getElementById('hall_name').value
@@ -226,6 +226,24 @@ function addExpenseFormRequest(){
 
 function searchExpenseFormRequest(){
     var search_form_number = document.getElementById("search_form_number").value;
+}
+
+// Populate dropdowns ============================
+
+
+
+function populateHallNames(){
+    var http = createRequestObject();
+    
+    // example of a get request for funds_requested = 150
+    http.open('get', 'populate.php?type=residence_hall',true);
+    http.onreadystatechange = function(){
+        if(http.readyState == 4){
+            // Assign the returned value to the document object.
+            document.getElementById('hall_name_dropdown').innerHTML = http.responseText;
+        }
+    }
+    http.send(null);
 }
 
 
