@@ -84,7 +84,7 @@ function validateAddResidenceRequest(){
 function addResidenceRequest() {
     alert("addResidenceRequest()");
     
-    var CA_sid_select = document.getElementById("CA_sid");
+    var CA_sid_select = document.getElementById("CA_sid_dropdown");
     var CA_sid = CA_sid_select.options[CA_sid_select.selectedIndex].value;
     
     alert(document.getElementById('hall_name').value + " " 
@@ -94,7 +94,7 @@ function addResidenceRequest() {
         + CA_sid);
     
     if (validateAddResidenceRequest()){
-        http.open('post', '../add.php?type=Residence_Hall&hallname=' + document.getElementById('hall_name').value
+        http.open('post', 'add.php?type=Residence_Hall&hallname=' + document.getElementById('hall_name').value
                               +  '&address=' + document.getElementById('address').value
                               +  '&numresidents=' + document.getElementById('num_residents').value
                               +  '&numlounges=' + document.getElementById('num_lounges').value

@@ -69,44 +69,50 @@
     <div class='container' id='addResidenceDiv'>
      <h1>Add Residence Hall</h1>
     <br>
-    <form class="form-horizontal" >
+     <form class="form-horizontal" action="add.php" method="post">
+        <input type="hidden" name="type" value="Residence_Hall">
         <div class="control-group">
         <label class="control-label" for="hall_name">Name</label>
             <div class="controls">
-                <input type="text" id="hall_name" placeholder="Hall Name">
+                <input type="text" name="hall_name" placeholder="Hall Name">
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="address">Address</label>
             <div class="controls">
-                <input type="text" id="address" placeholder="Address">
+                <input type="text" name="address" placeholder="Address">
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="num_residents">Residence Number</label>            
             <div class="controls">
-                <input type="number" id="num_residents" placeholder="Residence #">
+                <input type="number" name="num_residents" placeholder="Residence #">
             </div>
         </div> 
          <div class="control-group">
             <label class="control-label" for="num_lounges">Lounge Number</label>            
             <div class="controls">
-                <input type="number" id="num_lounges" placeholder="Lounge #">
+                <input type="number" name="num_lounges" placeholder="Lounge #">
             </div>
         </div>  
         <div class="control-group">
             <label class="control-label" for="CA_sid_dropdown">CA</label>    
-            <select class="form-control" id="CA_sid_dropdown">
+            <select class="form-control" id="CA_sid_dropdown" name="CA_sid_dropdown">
             </select>
         </div>  
         
         <div class="control-group">
             <div class="controls">
+
                 <button type="button" class="btn" onclick="addResidenceRequest()">Add</button>
             </div>
         </div>
+        <input type="submit">
     </form>
-    </div>  
+
+
+
+	</div>  
     
     <div class='container' id='searchResidenceDiv'>
         <h1>Search Residence Hall</h1>

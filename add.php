@@ -6,10 +6,11 @@
 
 	$out = "";	
 
+	echo $_POST['type'];
 	if ($_POST['type'] == 'Residence_Hall') {
 		// Define the query.
-		$q = "INSERT INTO {$_POST['type']} VALUES ('{$_POST['hallname']}', '{$_POST['address']}', {$_POST['numresidents']}, {$_POST['numlounges']}, {$_POST['CAsid']})";
-
+		$q = "INSERT INTO {$_POST['type']} VALUES ('{$_POST['hall_name']}', '{$_POST['address']}', {$_POST['num_residents']}, {$_POST['num_lounges']}, {$_POST['CA_sid_dropdown']})";
+		echo " " . $q . " ";
 		// Parse the query.
 		$s = oci_parse($c, $q);
 
