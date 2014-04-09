@@ -61,8 +61,6 @@ function handlePutResponse() {
 //please double check the request url to make sure it is correct
 
 
-
-
 function validateAddResidenceRequest(){
     var hall_name = document.getElementById('hall_name').value;
     var address = document.getElementById('address').value;
@@ -78,34 +76,6 @@ function validateAddResidenceRequest(){
         return false;
     }
     return true;
-}
-
-/* Request to add Residence Hall*/
-function addResidenceRequest() {
-    alert("addResidenceRequest()");
-    
-    var CA_sid_select = document.getElementById("CA_sid_dropdown");
-    var CA_sid = CA_sid_select.options[CA_sid_select.selectedIndex].value;
-    
-    alert(document.getElementById('hall_name').value + " " 
-        + document.getElementById('address').value + " "  
-        + document.getElementById('num_residents').value + " "
-        + document.getElementById('num_lounges').value + " "
-        + CA_sid);
-    
-    if (validateAddResidenceRequest()){
-        http.open('post', 'add.php?type=Residence_Hall&hallname=' + document.getElementById('hall_name').value
-                              +  '&address=' + document.getElementById('address').value
-                              +  '&numresidents=' + document.getElementById('num_residents').value
-                              +  '&numlounges=' + document.getElementById('num_lounges').value
-                              +  '&CAsid=' + document.getElementById('CA_sid_dropdown').value);
-                            
-        http.onreadystatechange = handlePutResponse;
-        http.send(null);
-    }
-    else{
-        document.getElementById('results').innerHTML = "Invalid inputs supplied";   
-    }
 }
 
 function validateSearchResidenceRequest(){

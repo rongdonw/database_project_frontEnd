@@ -72,6 +72,11 @@
     <form class="form-horizontal" action="add.php" method="post">
         <input type="hidden" name="type" value="Residence_Hall">
         <div class="control-group">
+            <div class="controls" id="error-msg" style="display:none;font-color:'red';">
+                Please fill in all fields.
+            </div>
+        </div>
+        <div class="control-group">
         <label class="control-label" for="hall_name">Name</label>
             <div class="controls">
                 <input type="text" id="hall_name" placeholder="Hall Name">
@@ -96,18 +101,19 @@
             </div>
         </div>  
         <div class="control-group">
-            <label class="control-label" for="CA_sid_dropdown">CA</label>    
-            <select class="form-control" id="CA_sid_dropdown" name="CA_sid_dropdown">
+            <label class="control-label" for="CA_sid_dropdown">CA</label>
+            <div class="controls">    
+                <select class="form-control" id="CA_sid_dropdown" name="CA_sid_dropdown">
+            </div>
             </select>
         </div>  
-        
+        <br>
         <div class="control-group">
             <div class="controls">
 
-                <button type="button" class="btn" id="add-residence-button" onclick="addResidenceRequest()">Add</button>
+                <button type="button" class="btn" id="add-residence-button">Add</button>
             </div>
         </div>
-        <input type="submit">
     </form>
 
 
@@ -187,6 +193,12 @@
             var num_lounges = $("input#num_lounges").val();
             var ca_sid = $("#CA_sid_dropdown").val();
             
+            if (hall === "" || address === "" || num_residents === "" || num_lounges === "" || ca_sid == ""){
+              $('#error-msg').show();
+              return false;
+            }
+
+
             var dataString = 'type=Residence_Hall' + '&hall_name=' + hall + '&address=' + address + '&num_residents=' + num_residents + '&num_lounges=' + num_lounges + '&CA_sid_dropdown=' + ca_sid;
             alert (dataString);
             
