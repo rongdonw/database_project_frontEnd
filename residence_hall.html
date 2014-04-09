@@ -103,9 +103,8 @@
         <div class="control-group">
             <label class="control-label" for="CA_sid_dropdown">CA</label>
             <div class="controls">    
-                <select class="form-control" id="CA_sid_dropdown" name="CA_sid_dropdown">
+                <select class="form-control" id="CA_sid_dropdown" name="CA_sid_dropdown"></select>
             </div>
-            </select>
         </div>  
         <br>
         <div class="control-group">
@@ -137,15 +136,26 @@
             </div>
         </div>
         </form>  
+        <div id="results">
+          <h1>Search Residence Hall</h1>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <td>Name</td>
+                <td>Address</td>
+                <td>Number of Residents</td>
+                <td>Number of Lounges</td>
+                <td>CA</td>
+              </tr>
+            </thead>
+            <tbody class="results-rows">
+              
+            </tbody>
+          </table>
+        </div>
     </div>
     
 </div>
-        
-    <br>
-    <div class="container" id="results"><!-- Make sure you have a results div in all your pages. From the backend, I will fill in the results div after       users click add or search. -->
-               <p>Results</p> 
-    </div>
-
       
 
 
