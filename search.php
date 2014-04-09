@@ -13,18 +13,19 @@
 		$s = oci_parse($c, $q);
 		// Execute the query.
 		oci_execute($s);
-		oci_fetch($s)
+		oci_fetch($s);
+		
+		$ca_sid = 0;
+		$ca_sid = oci_result($s, 'CA_SID');
 
-		$ca_sid = oci_result($s, $_GET['CA_sid']);
-
-		$q2 = "SELECT NAME FROM STAFF WHERE SID = {$ca_sid}";
+		$q2 = "SELECT NAME FROM STAFF_MEMBER WHERE SID = {$ca_sid}";
 		// Parse the query.
 		$s2 = oci_parse($c, $q2);
 		// Execute the query.
 		oci_execute($s2);
-		oci_fetch($s2)
+		oci_fetch($s2);
 
-		$name = trim(oci_result($s, 'NAME'));
+		$name = trim(oci_result($s, 'HALL_NAME'));
 		$address = trim(oci_result($s, 'ADDRESS'));
 		$num_residents = trim(oci_result($s, 'NUM_RESIDENTS'));
 		$num_lounges = trim(oci_result($s, 'NUM_LOUNGES'));
@@ -35,7 +36,7 @@
 		$out .= "<td>" . $address . "</td>";
 		$out .= "<td>" . $num_residents . "</td>";
 		$out .= "<td>" . $num_lounges . "</td>";
-		$out .= "<td>" . $ca_name . "</td>";
+		$out .= "<td>" . $ca_name . "</td></tr>";
 	}
 
 	// Close the connection.
