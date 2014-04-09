@@ -74,25 +74,25 @@
         <div class="control-group">
         <label class="control-label" for="hall_name">Name</label>
             <div class="controls">
-                <input type="text" name="hall_name" placeholder="Hall Name">
+                <input type="text" id="hall_name" placeholder="Hall Name">
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="address">Address</label>
             <div class="controls">
-                <input type="text" name="address" placeholder="Address">
+                <input type="text" id="address" placeholder="Address">
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="num_residents">Residence Number</label>            
             <div class="controls">
-                <input type="number" name="num_residents" placeholder="Residence #">
+                <input type="number" id="num_residents" placeholder="Residence #">
             </div>
         </div> 
          <div class="control-group">
             <label class="control-label" for="num_lounges">Lounge Number</label>            
             <div class="controls">
-                <input type="number" name="num_lounges" placeholder="Lounge #">
+                <input type="number" id="num_lounges" placeholder="Lounge #">
             </div>
         </div>  
         <div class="control-group">
@@ -185,10 +185,10 @@
             var address = $("input#address").val();
             var num_residents = $("input#num_residents").val();
             var num_lounges = $("input#num_lounges").val();
-            var ca_sid = $("input#CA_sid_dropdown").val();
+            var ca_sid = $("#CA_sid_dropdown").val();
             
             var dataString = 'type=Residence_Hall' + '&hall_name=' + hall + '&address=' + address + '&num_residents=' + num_residents + '&num_lounges=' + num_lounges + '&CA_sid_dropdown=' + ca_sid;
-            //alert (dataString);return false;
+            alert (dataString);
             
             $.ajax({
               type: "POST",
@@ -196,12 +196,12 @@
               data: dataString,
               success: function() {
                 $('#addResidenceDiv').html("<div id='message'></div>");
-                $('#message').html("<h2>Contact Form Submitted!</h2>")
-                .append("<p>We will be in touch soon.</p>")
-                .hide()
-                .fadeIn(1500, function() {
-                  $('#message').append("<img id='checkmark' src='images/check.png' />");
-                });
+                $('#message').html("<h2>Residence Hall Added!</h2>")
+                .append("<p><a href='residence_hall.html'>Add another</a></p>");
+               // .hide()
+               // .fadeIn(1500, function() {
+               //   $('#message').append("Test");
+               // });
               }
             });
             return false;
