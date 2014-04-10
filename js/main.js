@@ -234,9 +234,17 @@ function populateStaff(){
     http.onreadystatechange = function(){
         if(http.readyState == 4){
             // Assign the returned value to the document object.
-            document.getElementById('sid_dropdown').innerHTML = http.responseText;
+            if (document.getElementById('sid_dropdown') != null)
+                document.getElementById('sid_dropdown').innerHTML = http.responseText;
             if (document.getElementById('search_sid_dropdown') != null)
                 document.getElementById('search_sid_dropdown').innerHTML = http.responseText;   
+            var alldropdowns = document.getElementsByClassName('sid_dropdown');
+            if (alldropdowns != null){
+                for (var i = 0; i < alldropdowns.length; i++) {
+                    var d = alldropdowns[i];
+                    d.innerHTML = http.responseText;
+                }
+            }
         }
     }
     http.send(null);

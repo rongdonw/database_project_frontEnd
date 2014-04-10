@@ -102,10 +102,17 @@
             </div>
         </div>  
 
+        <div class="control-group"  id="organizers">
+            <label class="control-label" for="sid_dropdown">Organizer</label>    
+            <div class="controls">
+                <select class="form-control sid_dropdown"></select>
+                <button type="button" class="btn add-organizer-button">Add Another Organizer</button>
+            </div>
+        </div>  
         
         <div class="control-group">
             <div class="controls">
-                <button type="button" class="btn" onclick="addProgramRequest()">Add</button>
+                <button type="button" class="btn" id="add-program-button">Add</button>
             </div>
         </div>
     </form>
@@ -143,7 +150,7 @@
         
         <div class="control-group">
             <div class="controls">
-                <button type="button" class="btn" onclick="searchProgramRequest()">Search</button>
+                <button type="button" class="btn" id="search-program-button">Search</button>
             </div>
         </div>
         </form>  
@@ -183,6 +190,7 @@
         jQuery('#tabs > div').hide(); // hide all child divs
         jQuery('#tabs div:first').show(); // show first child dive
         jQuery('#tabsnav li:first').addClass('active');
+        populateStaff();
 
         jQuery('.menu-internal').click(function(){
             jQuery('#tabsnav li').removeClass('active');
@@ -194,6 +202,11 @@
             });
         });
             
+
+        $(".add-organizer-button").click(function() {
+            $("#organizers").append("<div class='controls'><select class='form-control sid_dropdown'></select><button type='button' class='btn add-organizer-button'>Add Another Organizer</button></div>");
+            populateStaff();
+          });
     </script>
   
 
