@@ -10,12 +10,49 @@
 	if ($_POST['type'] == 'Residence_Hall') {
 		// Define the query.
 		$q = "INSERT INTO {$_POST['type']} VALUES ('{$_POST['hall_name']}', '{$_POST['address']}', {$_POST['num_residents']}, {$_POST['num_lounges']}, {$_POST['CA_sid_dropdown']})";
-		echo " " . $q . " ";
+		// Parse the query.
+		$s = oci_parse($c, $q);
+		// Execute the query.
+		oci_execute($s);
+	} elseif ($_POST['type'] == 'RA' || $_POST['type'] == 'CA') {
+		// Define the query.
+		$q = "SELECT MAX(SID) AS MAX FROM STAFF_MEMBER";
+		// Parse the query.
+		$s = oci_parse($c, $q);
+		// Execute the query.
+		oci_execute($s);
+		oci_fetch($s);
+		$new_sid = oci_result($s, 'MAX') + 1;
+		echo $new_sid;
+
+		$q = "INSERT INTO Staff_Member VALUES ($new_sid, 
+			'{$_POST['name']}',
+			{$_POST['room_num']},
+			{$_POST['phone_num']},
+			'{$_POST['hall_name']}')";
 		// Parse the query.
 		$s = oci_parse($c, $q);
 
 		// Execute the query.
 		oci_execute($s);
+
+		if ($_POST['type'] == 'RA') {
+			$q = "INSERT INTO Residence_Advisor VALUES ($new_sid, 
+			'{$_POST['floors_managed']}',
+			{$_POST['num_residents']},
+			{$_POST['CA_sid_dropdown']})";
+			// Parse the query.
+			$s = oci_parse($c, $q);
+			// Execute the query.
+			oci_execute($s);
+		} else if ($_POST['type'] == 'CA') {
+			$q = "INSERT INTO Community_Advisor VALUES ($new_sid, 
+			{$_POST['p_card_num']})";
+			// Parse the query.
+			$s = oci_parse($c, $q);
+			// Execute the query.
+			oci_execute($s);
+		}
 	}
 
 	// Close the connection.

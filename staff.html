@@ -245,6 +245,7 @@
             jQuery('#tabsnav li a[href="'+currentTab+'"]').parent().addClass('active');
             jQuery('#tabs > div').hide();
             jQuery(currentTab).show();
+            populateHallNames();
             return false;
             });
         
@@ -280,7 +281,80 @@
             jQuery('#addRAButton_div').show();
 
         }
+
+        $("#add-staff-button").click(function(type) {
+            var name = $("input#name").val();
+            var room_num = $("input#room_num").val();
+            var phone_num = $("input#phone_num").val();
+            var hall_name = $("#hall_name_dropdown").val();
+            if (name === "" || room_num === "" || phone_num === "" || hall_name === ""){
+              $('#error-msg').show();
+              return false;
+            }
+
+            var dataString;
+
+            if(type == 'RA'){
+                var floors_managed = $("input#floors_managed").val();
+                var num_residents = $("input#num_residents").val();
+                var CA_sid_dropdown = $("#CA_sid_dropdown").val();
+                if (floors_managed === "" || num_residents === "" || CA_sid_select === ""){
+                    $('#error-msg').show();
+                    return false;
+                }
+                dataString = 'type=' + type + 'name=' + name + '&room_num=' + room_num + '&phone_num=' + phone_num + '&hall_name=' + hall_name + '&floors_managed=' + floors_managed + '&num_residents=' + num_residents + '&CA_sid_dropdown=' + CA_sid_dropdown;
+
+            } else if (type == 'CA') {
+                var p_card_num = $("input#p_card_num").val();
+                if (p_card_num === ""){
+                    $('#error-msg').show();
+                    return false;
+                }
+                dataString = 'type=' + type + 'name=' + name + '&room_num=' + room_num + '&phone_num=' + phone_num + '&hall_name=' + hall_name + '&p_card_num=' + p_card_num;
+            }
+             
+            alert (dataString);
             
+            $.ajax({
+              type: "POST",
+              url: "add.php",
+              data: dataString,
+              success: function() {
+                $('#addStaff').html("<div id='message'></div>");
+                $('#message').html("<h2>Staff Member Added!</h2>")
+                .append("<p><a href='staff.html'>Add another</a></p>");
+               // .hide()
+               // .fadeIn(1500, function() {
+               //   $('#message').append("Test");
+               // });
+              }
+            });
+            return false;
+          });
+            
+
+function addCARequest(){
+    var name = document.getElementById("name").value;
+    var room_num = document.getElementById("room_num").value;
+    var phone_num = document.getElementById("phone_num").value;
+    var hall_name = document.getElementById("hall_name").value;
+    
+    var p_card_num = document.getElementById("p_card_num").value;
+        
+        
+}
+
+function addRARequest(){
+    var name = document.getElementById("name").value;
+    var room_num = document.getElementById("room_num").value;
+    var phone_num = document.getElementById("phone_num").value;
+    var hall_name = document.getElementById("hall_name").value;
+    
+
+    var CA_sid = CA_sid_select.options[CA_sid_select.selectedIndex].value;
+    
+
+
     </script>
   
 
