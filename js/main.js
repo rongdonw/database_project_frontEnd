@@ -233,6 +233,8 @@ function populateStaff(){
         if(http.readyState == 4){
             // Assign the returned value to the document object.
             document.getElementById('sid_dropdown').innerHTML = http.responseText;
+            if (document.getElementById('search_hall_dropdown') != null)
+                document.getElementById('search_hall_dropdown').innerHTML = http.responseText;
         }
     }
     http.send(null);

@@ -62,8 +62,8 @@
 
 <div class='container' id="tabs">
     <ul class="nav nav-tabs" id="tabsnav">
-        <li><a href="#addStaff" class="menu-internal">Add Staff</a></li>
-        <li><a href="#searchStaff" class="menu-internal">Search Staff</a></li>
+        <li><a href="#addStaff" class="menu-internal">Add Staff Member</a></li>
+        <li><a href="#searchStaff" class="menu-internal">Search Staff Member</a></li>
     </ul>
     
     <div class='container' id='addStaff'>
@@ -90,41 +90,46 @@
         </div> 
         <div class="control-group">
             <label class="control-label" for="hall_name_dropdown">Hall Name</label>    
-                <select class="form-control" id="hall_name_dropdown">
+            <div class="controls">
+            <select class="form-control" id="hall_name_dropdown">
             </select>
+            </div>
         </div>  
         
-        <div class="radio control-group">
-            <label>
-                <input type="radio" name="AddStaffTypeRadios" id="toAddCA" value="CA" onclick="showAddCA()" checked>
-                CA
-            </label>
+        <div class="control-group">
+            <label class="control-label">Staff Position</label>
+            <div class="radio control-group controls">
+                <label>
+                    <input type="radio" name="AddStaffTypeRadios" id="toAddCA" value="CA" onclick="showAddCA()" checked>
+                    CA
+                </label>
+            </div>
+            <div class="radio control-group controls">
+                <label>
+                <input type="radio" name="AddStaffTypeRadios" id="toAddRA" value="RA" onclick="showAddRA()">
+                    RA
+                </label>
+            </div>
         </div>
-        <div class="radio control-group">
-            <label>
-            <input type="radio" name="AddStaffTypeRadios" id="toAddRA" value="RA" onclick="showAddRA()">
-                RA
-            </label>
-        </div>
-        
+
         <div class="control-group" id="p_card_num_div">
-            <label class="control-label" for="p_card_num">P Card Number</label>            
+            <label class="control-label" for="p_card_num">Purchase Card Number</label>            
             <div class="controls">
-                <input type="text" id="p_card_num" placeholder="P Card #">
+                <input type="text" id="p_card_num" placeholder="Numbers only">
             </div>
         </div> 
         
         <div class="control-group" id="floors_managed_div">
-            <label class="control-label" for="floors_managed">Managed Floors Number</label>            
+            <label class="control-label" for="floors_managed">Floors Managed</label>            
             <div class="controls">
-                <input type="number" id="floors_managed" placeholder="Floor #">
+                <input type="number" id="floors_managed" placeholder="e.g. 2 & 3">
             </div>
         </div> 
         
         <div class="control-group" id="num_residents_div">
-            <label class="control-label" for="num_residents">Residents Number</label>            
+            <label class="control-label" for="num_residents">Number of Residents</label>            
             <div class="controls">
-                <input type="number" id="num_residents" placeholder="Residents #">
+                <input type="number" id="num_residents" placeholder="Numbers only, e.g. 33">
             </div>
         </div> 
         
@@ -136,17 +141,16 @@
         </div>  
         
         <div class="control-group" id="addCAButton_div">
-            <label class="control-label" for="CA_sid_dropdown">Staff Position</label>
             <div class="controls">
                 <button type="button" class="btn" onclick="addCARequest()">Add CA</button>
             </div>
         </div>
-        
         <div class="control-group" id="addRAButton_div">
             <div class="controls">
                 <button type="button" class="btn" onclick="addRARequest()">Add RA</button>
             </div>
         </div>
+
     </form>
     </div>  
     
@@ -162,9 +166,10 @@
         </div>
         
         <div class="control-group">
-        <label class="control-label" for="search_staff_hall">Hall Name</label>
+        <label class="control-label" for="search_hall_dropdown">Hall Name</label>
             <div class="controls">
-                <input type="text" id="search_staff_hall" placeholder="Hall Name">
+            <select class="form-control" id="search_hall_dropdown">
+            </select>
             </div>
         </div>
         <div class="control-group">
@@ -227,6 +232,7 @@
       
     <script>
         jQuery(document).ready(function() {
+        showAddCA();
     	populateCAs();
 	    populateHallNames();
         jQuery('#tabs > div').hide(); // hide all child divs
@@ -259,6 +265,7 @@
 
             //show addCA section
             jQuery('#p_card_num_div').show();
+            jQuery('#addCAButton_div').show();
         }
         
         function showAddRA(){
