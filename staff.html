@@ -142,12 +142,12 @@
         
         <div class="control-group" id="addCAButton_div">
             <div class="controls">
-                <button type="button" class="btn" onclick="addCARequest()">Add CA</button>
+                <button type="button" class="btn" id="add-CA-button">Add CA</button>
             </div>
         </div>
         <div class="control-group" id="addRAButton_div">
             <div class="controls">
-                <button type="button" class="btn" onclick="addRARequest()">Add RA</button>
+                <button type="button" class="btn" id="add-RA-button">Add RA</button>
             </div>
         </div>
 
@@ -194,7 +194,7 @@
         
         <div class="control-group">
             <div class="controls">
-                <button type="button" class="btn" onclick="searchStaffRequest()">Search</button>
+                <button type="button" class="btn">Search</button>
             </div>
         </div>
             
@@ -282,7 +282,7 @@
 
         }
 
-        $("#add-staff-button").click(function(type) {
+        function addStaffRequest(type) {
             var name = $("input#name").val();
             var room_num = $("input#room_num").val();
             var phone_num = $("input#phone_num").val();
@@ -298,11 +298,11 @@
                 var floors_managed = $("input#floors_managed").val();
                 var num_residents = $("input#num_residents").val();
                 var CA_sid_dropdown = $("#CA_sid_dropdown").val();
-                if (floors_managed === "" || num_residents === "" || CA_sid_select === ""){
+                if (floors_managed === "" || num_residents === "" || CA_sid_dropdown === ""){
                     $('#error-msg').show();
                     return false;
                 }
-                dataString = 'type=' + type + 'name=' + name + '&room_num=' + room_num + '&phone_num=' + phone_num + '&hall_name=' + hall_name + '&floors_managed=' + floors_managed + '&num_residents=' + num_residents + '&CA_sid_dropdown=' + CA_sid_dropdown;
+                dataString = 'type=' + type + '&name=' + name + '&room_num=' + room_num + '&phone_num=' + phone_num + '&hall_name=' + hall_name + '&floors_managed=' + floors_managed + '&num_residents=' + num_residents + '&CA_sid_dropdown=' + CA_sid_dropdown;
 
             } else if (type == 'CA') {
                 var p_card_num = $("input#p_card_num").val();
@@ -310,7 +310,7 @@
                     $('#error-msg').show();
                     return false;
                 }
-                dataString = 'type=' + type + 'name=' + name + '&room_num=' + room_num + '&phone_num=' + phone_num + '&hall_name=' + hall_name + '&p_card_num=' + p_card_num;
+                dataString = 'type=' + type + '&name=' + name + '&room_num=' + room_num + '&phone_num=' + phone_num + '&hall_name=' + hall_name + '&p_card_num=' + p_card_num;
             }
              
             alert (dataString);
@@ -330,32 +330,17 @@
               }
             });
             return false;
-          });
-            
+          }
 
-function addCARequest(){
-    var name = document.getElementById("name").value;
-    var room_num = document.getElementById("room_num").value;
-    var phone_num = document.getElementById("phone_num").value;
-    var hall_name = document.getElementById("hall_name").value;
-    
-    var p_card_num = document.getElementById("p_card_num").value;
-        
-        
-}
-
-function addRARequest(){
-    var name = document.getElementById("name").value;
-    var room_num = document.getElementById("room_num").value;
-    var phone_num = document.getElementById("phone_num").value;
-    var hall_name = document.getElementById("hall_name").value;
-    
-
-    var CA_sid = CA_sid_select.options[CA_sid_select.selectedIndex].value;
-    
-
-
+          $("#add-RA-button").click(function(){
+			alert("add RA");
+			addStaffRequest('RA');
+		  });
+          $("#add-CA-button").click(function(){
+			addStaffRequest('CA');
+		  });
     </script>
   
 
 </body></html>
+
