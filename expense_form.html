@@ -392,7 +392,7 @@
                 dataString = dataString + "&pid=" + pid;
             }
 
-            alert(dataString);
+            //alert(dataString);
             
             $.ajax({
               type: "POST",
@@ -419,7 +419,7 @@
             }
 
             var dataString = 'type=Expense' + "&form_number=" + form_number;
-            alert (dataString);
+            //alert (dataString);
             
             $.ajax({
               type: "GET",
@@ -448,11 +448,11 @@
             if (outstanding !=  "") {
                 dataString = dataString + "&outstanding=" + outstanding;
             }
-            if (sid !=  null) {
+            if (sid !=  'none' && sid != null) {
                 dataString = dataString + "&sid=" + sid;
             }
 
-            alert(dataString);
+            //alert(dataString);
 
             /*if (start_date === "" && end_date === "" && sid === ""){
             $('#error-msg2').show();
@@ -484,7 +484,7 @@
 
             var dataString = 'type=Expense' + '&form_number=' + form_number + '&vendor=' + vendor + '&date=' + date + '&amount=' + amount + '&items_purchased=' + items_purchased;
 
-            alert(dataString);
+            //alert(dataString);
             
             $.ajax({
               type: "POST",

@@ -237,7 +237,7 @@ function populateStaff(){
             if (document.getElementById('sid_dropdown') != null)
                 document.getElementById('sid_dropdown').innerHTML = http.responseText;
             if (document.getElementById('search_sid_dropdown') != null)
-                document.getElementById('search_sid_dropdown').innerHTML = http.responseText;   
+                document.getElementById('search_sid_dropdown').innerHTML = "<option value='none'>None</option>" + http.responseText;   
             var alldropdowns = document.getElementsByClassName('sid_dropdown');
             if (alldropdowns != null){
                 for (var i = 0; i < alldropdowns.length; i++) {

@@ -334,7 +334,7 @@
                 dataString = 'type=' + type + '&name=' + name + '&room_num=' + room_num + '&phone_num=' + phone_num + '&hall_name=' + hall_name + '&p_card_num=' + p_card_num;
             }
              
-            alert (dataString);
+            //alert (dataString);
             
             $.ajax({
               type: "POST",
@@ -354,7 +354,7 @@
           }
 
           $("#add-RA-button").click(function(){
-			alert("add RA");
+			//alert("add RA");
 			addStaffRequest('RA');
 		  });
           $("#add-CA-button").click(function(){
@@ -367,7 +367,7 @@
             var isRAChecked = $("input#optionsRA").is(':checked');
             var isCAChecked = $("input#optionsCA").is(':checked');
 
-            alert(isRAChecked + " " + isCAChecked);
+            //alert(isRAChecked + " " + isCAChecked);
 
             var staff_type;
 
@@ -385,7 +385,7 @@
                 dataString = dataString + "&hall_name=" + hall;
             }
 
-            alert (dataString);
+            //alert (dataString);
             
             $.ajax({
               type: "GET",
@@ -400,7 +400,7 @@
 
           $("#view-all-staff-button").click(function() {
             var dataString = 'type=Staff_Member&all=true';
-            alert (dataString);
+            //alert (dataString);
             
             $.ajax({
               type: "GET",

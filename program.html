@@ -247,7 +247,7 @@
 
             var dataString = 'type=Program' + '&event_name=' + event_name + '&location=' + location + '&date=' + date + '&time=' + time + '&funds_requested=' + funds_requested + '&funds_requested=' + funds_requested + '&sid=' + sid;
 
-            alert(dataString);
+            //alert(dataString);
             if (event_name === "" || location === "" || date === "" || time === "" || funds_requested === ""|| sid === ""){
               $('#error-msg').show();
               return false;
@@ -292,7 +292,7 @@
                 dataString = dataString + "&sid_dropdown=" + sid_dropdown;
             }
 
-            alert (dataString);
+            //alert (dataString);
             
             $.ajax({
               type: "GET",

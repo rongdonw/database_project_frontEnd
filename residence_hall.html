@@ -220,7 +220,7 @@
 
 
             var dataString = 'type=Residence_Hall' + '&hall_name=' + hall + '&address=' + address + '&num_residents=' + num_residents + '&num_lounges=' + num_lounges + '&CA_sid_dropdown=' + ca_sid;
-            alert (dataString);
+            //alert (dataString);
             
             $.ajax({
               type: "POST",
@@ -248,7 +248,7 @@
             }
 
             var dataString = 'type=Residence_Hall' + '&hall_name=' + hall;
-            alert (dataString);
+            //alert (dataString);
             
             $.ajax({
               type: "GET",
@@ -265,7 +265,7 @@
 
           $("#view-all-residence-button").click(function() {
             var dataString = 'type=Residence_Hall&all=true';
-            alert (dataString);
+           // alert (dataString);
             
             $.ajax({
               type: "GET",
