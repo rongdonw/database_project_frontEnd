@@ -252,6 +252,20 @@
             return false;
           });
 
+          $("#view-all-budget-button").click(function() {
+            var dataString = 'type=Budget&all=true';
+            
+            $.ajax({
+              type: "GET",
+              url: "search.php",
+              data: dataString,
+              success: function(text) {
+                $('#results-rows').html(text);
+              }
+            });
+            return false;
+          });
+
 
     </script>
   
