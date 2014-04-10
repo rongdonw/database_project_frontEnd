@@ -108,6 +108,29 @@
 			oci_execute($s);	
 			}
 		}
+	} elseif ($_POST['type'] == 'Expense') {
+		$form_number = $_POST['form_number'];
+		$q = "INSERT INTO EXPENSE_FORM(FORM_NUMBER, MAX_AMOUNT) VALUES ($form_number, 
+			{$_POST['max_amount']})";
+		// Parse the query.
+		$s = oci_parse($c, $q);
+
+		// Execute the query.
+		oci_execute($s);
+
+		$users  = $_POST['sid'];
+		$users_arr = explode(",", $users);
+		
+		foreach ($users_arr as &$user) {
+    		if ($user != "") {
+			$q = "INSERT INTO USES VALUES ({$user}, {$form_number})";
+			// Parse the query.
+			$s = oci_parse($c, $q);
+
+			// Execute the query.
+			oci_execute($s);	
+			}
+		}
 	}
 
 	// Close the connection.
