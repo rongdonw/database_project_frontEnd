@@ -64,7 +64,7 @@
     <ul class="nav nav-tabs" id="tabsnav">
         <li><a href="#addExpenseDiv" class="menu-internal">Add Expense Form</a></li>
         <li><a href="#searchExpenseDiv" class="menu-internal">Search Expense Form</a></li>
-        <li><a href="#editExpenseDiv" class="menu-internal">Edit Expense Form</a></li>
+        <li><a href="#editExpenseDiv" class="menu-internal">Update Expense Form</a></li>
     </ul>
     
     <div class='container' id='addExpenseDiv'>
@@ -72,15 +72,14 @@
     <br>
     <form class="form-horizontal" >
         <div class="control-group">
-        <label class="control-label" for="form_number">Form Number</label>
-            <div class="controls">
-                <input type="number" id="form_number" placeholder="Form #">
+            <div class="controls" id="error-msg" style="display:none;font-color:'red';">
+                Please fill in all fields.
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="date">Date</label>
+        <label class="control-label" for="form_number">Form Number</label>
             <div class="controls">
-                <input type="date" id="date" placeholder="Date">
+                <input type="number" id="form_number" placeholder="Form #">
             </div>
         </div>
         <div class="control-group">
@@ -126,19 +125,25 @@
         <div id="search_form_number_div">
         <div class="control-group">
         <label class="control-label" for="search_form_number">Form Number</label>
+          <div class="control-group">
+            <div class="controls" id="error-msg2" style="display:none;font-color:'red';">
+                Please type in valid search parameters.
+            </div>
+          </div>
             <div class="controls">
                 <input type="text" id="search_form_number" placeholder="Form #">
             </div>
         </div>
          <div class="control-group">
             <div class="controls">
-                <button type="button" class="btn" onclick="searchExpenseFormByFormNumberRequest()">Search</button>
+                <button type="button" class="btn" id="search-expense-button-f">Search</button>
             </div>
          </div>
         </div>
         
         
         <div id="search_other_div">
+
         <div class="control-group">
         <label class="control-label" for="search_start_date">Start Date</label>
             <div class="controls">
@@ -156,7 +161,7 @@
         <div class="control-group"  id="users">
             <label class="control-label" for="sid_dropdown">Used By</label>    
             <div class="controls">
-                <select class="form-control sid_dropdown"></select>
+                <select class="form-control" id="sid_dropdown"></select>
             </div>
         </div>     
 
@@ -179,7 +184,7 @@
 
         <div class="control-group">
             <div class="controls">
-                <button type="button" class="btn" id="view-all-program-button">View All</button>
+                <button type="button" class="btn" id="view-all-expense-button">View All</button>
             </div>
         </div>    
         </form>  
@@ -189,12 +194,15 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <td>Program Name</td>
+                <td>Form Number</td>
                 <td>Date</td>
-                <td>Time</td>
-                <td>Location</td>
-                <td>Funds Requested</td>
-                <td>Organized By</td>
+                <td>Vendor</td>
+                <td>Max Amount</td>
+                <td>Amount Spent</td>
+                <td>Items Purchased</td>
+                <td>Used By</td>
+                <td>Funded By</td>
+                <td>Paid For</td>
               </tr>
             </thead>
             <tbody id="results-rows">
@@ -205,10 +213,14 @@
     </div>
     
     <div class='container' id='editExpenseDiv'>
-     <h1>Edit Expense Form</h1>
+     <h1>Update Expense Form</h1>
     <br>
     <form class="form-horizontal" >
-
+        <div class="control-group">
+            <div class="controls" id="error-msg3" style="display:none;font-color:'red';">
+                All fields (except "Paid For") require input.
+            </div>
+        </div>
 
         <div class="control-group">
             <label class="control-label" for="vendor">Vendor</label>            
@@ -216,6 +228,12 @@
                 <input type="text" id="vendor" placeholder="Vendor">
             </div>
         </div> 
+        <div class="control-group">
+            <label class="control-label" for="date">Date of Purchase</label>
+            <div class="controls">
+                <input type="date" id="date" placeholder="Date">
+            </div>
+        </div>
         <div class="control-group">
             <label class="control-label" for="amount_spent">Amount Spent</label>            
             <div class="controls">
@@ -334,7 +352,148 @@
             $("#budgets").append("<div class='controls'><select class='form-control bid_dropdown'></select></div>");
             //populateBudgets();
         });
+           
+        $("#add-expense-button").click(function() {
+            var form_number = $("input#form_number").val();
+            var max_amount = $("input#max_amount").val();
+
+            var sid = "";
+            $(".sid_dropdown").each(function( index ) {
+                sid = sid + "," + $(this).val();
+            });
+
+            var dataString = 'type=Expense' + '&form_number=' + form_number + '&max_amount=' + max_amount + '&sid=' + sid;
+
+            alert(dataString);
+            if (form_number === "" || max_amount === "" || sid === ""){
+              $('#error-msg').show();
+              return false;
+            }
+
             
+            $.ajax({
+              type: "POST",
+              url: "add.php",
+              data: dataString,
+              success: function() {
+                $('#addExpenseDiv').html("<div id='message'></div>");
+                $('#message').html("<h2>Expense Added!</h2>")
+                .append("<p><a href='expense.html'>Add another</a></p>");
+               // .hide()
+               // .fadeIn(1500, function() {
+               //   $('#message').append("Test");
+               // });
+              }
+            });
+            return false;
+          });
+
+          $("#search-expense-button-f").click(function() {
+            var form_number = $("input#search_form_number").val();
+            if (form_number == "") {
+              $('#error-msg2').show();
+              return false;
+            }
+
+            var dataString = 'type=Expense' + "&form_number" + form_number;
+            alert (dataString);
+            
+            $.ajax({
+              type: "GET",
+              url: "search.php",
+              data: dataString,
+              success: function(text) {
+                $('#results-rows').html(text);
+              }
+            });
+            return false;
+          });
+
+          $("#search-expense-button").click(function() {
+            var start_date = $("input#search_start_date").val();
+            var end_date = $("input#search_end_date").val();
+            var outstanding = $("input#outstanding").is(':checked');
+            var sid = $("#sid_dropdown").val();
+
+            var dataString = 'type=Expense' + '&start_date=' + start_date + '&end_date=' + end_date + '&outstanding=' + outstanding + '&sid=' + sid;
+
+            alert(dataString);
+
+            /*if (start_date === "" && end_date === "" && sid === ""){
+            $('#error-msg2').show();
+              return false;
+            }*/
+            
+            $.ajax({
+              type: "GET",
+              url: "search.php",
+              data: dataString,
+              success: function(text) {
+                $('#results-rows').html(text);
+              }
+            });
+            return false;
+          });
+
+          $("#update-expense-button").click(function() {
+            var vendor = $("input#vendor").val();
+            var date = $("input#date").val();
+            var amount = $("input#amount").val();
+            var items_purchased = $("input#items_purchased").val();
+
+            var pid = "";
+            $(".pid_dropdown").each(function( index ) {
+                pid = pid + "," + $(this).val();
+            });
+
+            var bid = "";
+            $(".bid_dropdown").each(function( index ) {
+                bid = bid + "," + $(this).val();
+            });
+
+
+            if (vendor === "" || date === "" || amount === "" || items_purchased === ""){
+              $('#error-msg3').show();
+              return false;
+            }
+
+            var dataString = 'type=Expense' + '&vendor=' + vendor + '&date=' + date + '&amount=' + amount + '&pid=' + pid + '&bid=' + bid;
+
+            alert(dataString);
+            
+            $.ajax({
+              type: "POST",
+              url: "add.php",
+              data: dataString,
+              success: function() {
+                $('#addExpenseDiv').html("<div id='message'></div>");
+                $('#message').html("<h2>Expense Updated!</h2>")
+                .append("<p><a href='expense.html'>Add new expense</a></p>");
+               // .hide()
+               // .fadeIn(1500, function() {
+               //   $('#message').append("Test");
+               // });
+              }
+            });
+            return false;
+          });
+
+
+          $("#view-all-expense-button").click(function() {
+            var dataString = 'type=Expense&all=true';
+            
+            $.ajax({
+              type: "GET",
+              url: "search.php",
+              data: dataString,
+              success: function(text) {
+                $('#results-rows').html(text);
+              }
+            });
+            return false;
+          });
+
+
     </script>
   
 
