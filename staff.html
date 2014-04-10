@@ -363,9 +363,9 @@
 
           $("#search-staff-button").click(function() {
             var name = $("input#search_staff_name").val();
-            var hall = $("search_hall_dropdown").val();
-            var isRAChecked = $("#optionsRA").checked;
-            var isCAChecked = $("#optionsCA").checked;
+            var hall = $("#search_hall_dropdown").val();
+            var isRAChecked = $("input#optionsRA").is(':checked');
+            var isCAChecked = $("input#optionsCA").is(':checked');
 
             alert(isRAChecked + " " + isCAChecked);
 

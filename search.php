@@ -53,7 +53,7 @@
 		} elseif ($_GET['staff_type'] == 'RA') {
 			$qCA = "";
 			if (isset($_GET['name']) && isset($_GET['hall_name'])) {
-				$qRA .= " WHERE NAME == '{$_GET['name']}' AND HALL_NAME == '$_GET['hall_name']'"; 
+				$qRA .= " WHERE NAME == '{$_GET['name']}' AND HALL_NAME == '{$_GET['hall_name']}'"; 
 			} elseif (isset($_GET['name'])) {
 				$qRA .= " WHERE NAME == '{$_GET['name']}'";
 			} elseif (isset($_GET['hall_name'])) {
@@ -63,7 +63,7 @@
 		} elseif ($_GET['staff_type'] == 'CA') {
 			$qRA = "";
 			if (isset($_GET['name']) && isset($_GET['hall_name'])) {
-				$qCA .= " WHERE NAME == '{$_GET['name']}' AND HALL_NAME == '$_GET['hall_name']'"; 
+				$qCA .= " WHERE NAME == '{$_GET['name']}' AND HALL_NAME == '{$_GET['hall_name']}'"; 
 			} elseif (isset($_GET['name'])) {
 				$qCA .= " WHERE NAME == '{$_GET['name']}'";
 			} elseif (isset($_GET['hall_name'])) {
@@ -107,16 +107,6 @@
 				$out .= "<td></td></tr>";
 
 
-
-				                <td>Name</td>
-                <td>Room Number</td>
-                <td>Phone Number</td>
-                <td>Hall Name</td>
-                <td>Position</td>
-                <td>Floors Managed</td>
-                <td>Number of Residents</td>
-                <td>CA</td>
-                <td>Purchase Card Number</td>
 			}
 		}
 		if ($qCA != "") {
