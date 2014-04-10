@@ -295,7 +295,7 @@ function populateBudgets(){
             if (alldropdowns != null){
                 for (var i = 0; i < alldropdowns.length; i++) {
                     var d = alldropdowns[i];
-                    d.innerHTML = "<option value='none'>None</option>" + http.responseText;
+                    d.innerHTML = http.responseText;
                 }
             }
         }

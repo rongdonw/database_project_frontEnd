@@ -272,7 +272,7 @@
         
         <div class="control-group">
             <div class="controls">
-                <button type="button" class="btn" id="edit-expense-button">Save</button>
+                <button type="button" class="btn" id="update-expense-button">Save</button>
             </div>
         </div>
     </form>
@@ -372,7 +372,8 @@
 
             var pid = "";
             $(".pid_dropdown").each(function( index ) {
-                pid = pid + "," + $(this).val();
+                if($(this).val() != 'none')
+                    pid = pid + "," + $(this).val();
             });
 
             var bid = "";
@@ -387,7 +388,7 @@
             }
            // alert(pid);
             var dataString = 'type=Expense' + '&form_number=' + form_number + '&max_amount=' + max_amount + '&sid=' + sid + '&bid=' + bid;
-            if (pid != ',none'){
+            if (pid != ""){
                 dataString = dataString + "&pid=" + pid;
             }
 
