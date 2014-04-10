@@ -8,35 +8,41 @@
 
 	if ($_GET['type'] == 'Residence_Hall') {
 		// Define the query.
-		$q = "SELECT * FROM {$_GET['type']} WHERE HALL_NAME = '{$_GET['hall_name']}'";
+
+		if (isset($_GET['all'])) {
+			$q = "SELECT * FROM RESIDENCE_HALL";
+		} else {
+			$q = "SELECT * FROM {$_GET['type']} WHERE HALL_NAME = '{$_GET['hall_name']}'";	
+		}
+		
 		// Parse the query.
 		$s = oci_parse($c, $q);
 		// Execute the query.
 		oci_execute($s);
-		oci_fetch($s);
-		
-		$ca_sid = 0;
-		$ca_sid = oci_result($s, 'CA_SID');
+		while(oci_fetch($s)){	
+			$ca_sid = 0;
+			$ca_sid = oci_result($s, 'CA_SID');
 
-		$q2 = "SELECT NAME FROM STAFF_MEMBER WHERE SID = {$ca_sid}";
-		// Parse the query.
-		$s2 = oci_parse($c, $q2);
-		// Execute the query.
-		oci_execute($s2);
-		oci_fetch($s2);
+			$q2 = "SELECT NAME FROM STAFF_MEMBER WHERE SID = {$ca_sid}";
+			// Parse the query.
+			$s2 = oci_parse($c, $q2);
+			// Execute the query.
+			oci_execute($s2);
+			oci_fetch($s2);
 
-		$name = trim(oci_result($s, 'HALL_NAME'));
-		$address = trim(oci_result($s, 'ADDRESS'));
-		$num_residents = trim(oci_result($s, 'NUM_RESIDENTS'));
-		$num_lounges = trim(oci_result($s, 'NUM_LOUNGES'));
-		$ca_name = trim(oci_result($s2, 'NAME'));
+			$name = trim(oci_result($s, 'HALL_NAME'));
+			$address = trim(oci_result($s, 'ADDRESS'));
+			$num_residents = trim(oci_result($s, 'NUM_RESIDENTS'));
+			$num_lounges = trim(oci_result($s, 'NUM_LOUNGES'));
+			$ca_name = trim(oci_result($s2, 'NAME'));
 
-		$out .= "<tr>";
-		$out .= "<td>" . $name . "</td>";
-		$out .= "<td>" . $address . "</td>";
-		$out .= "<td>" . $num_residents . "</td>";
-		$out .= "<td>" . $num_lounges . "</td>";
-		$out .= "<td>" . $ca_name . "</td></tr>";
+			$out .= "<tr>";
+			$out .= "<td>" . $name . "</td>";
+			$out .= "<td>" . $address . "</td>";
+			$out .= "<td>" . $num_residents . "</td>";
+			$out .= "<td>" . $num_lounges . "</td>";
+			$out .= "<td>" . $ca_name . "</td></tr>";
+		}
 	}
 
 	// Close the connection.

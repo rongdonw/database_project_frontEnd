@@ -89,15 +89,15 @@
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="num_residents">Residence Number</label>            
+            <label class="control-label" for="num_residents">Number of Residents</label>            
             <div class="controls">
-                <input type="number" id="num_residents" placeholder="Residence #">
+                <input type="number" id="num_residents" placeholder="Number only, e.g. 150">
             </div>
         </div> 
          <div class="control-group">
-            <label class="control-label" for="num_lounges">Lounge Number</label>            
+            <label class="control-label" for="num_lounges">Number of Lounges</label>            
             <div class="controls">
-                <input type="number" id="num_lounges" placeholder="Lounge #">
+                <input type="number" id="num_lounges" placeholder="Number only, e.g. 8">
             </div>
         </div>  
         <div class="control-group">
@@ -138,6 +138,12 @@
         <div class="control-group">
             <div class="controls">
                 <button type="button" class="btn" id="search-residence-button">Search</button>
+            </div>
+        </div>
+        <br>or<br>
+        <div class="control-group">
+            <div class="controls">
+                <button type="button" class="btn" id="view-all-residence-button">View All</button>
             </div>
         </div>
         </form>  
@@ -258,7 +264,23 @@
 
           });
 
+          $("#view-all-residence-button").click(function() {
 
+            var dataString = 'type=Residence_Hall&all=true';
+            alert (dataString);
+            
+            $.ajax({
+              type: "GET",
+              url: "search.php",
+              data: dataString,
+              success: function(text) {
+                $('#results-rows').html(text);
+              }
+            });
+            return false;
+
+
+          });
 
     </script>
   
