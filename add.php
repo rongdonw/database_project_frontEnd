@@ -6,7 +6,6 @@
 
 	$out = "";	
 
-	echo $_POST['type'];
 	if ($_POST['type'] == 'Residence_Hall') {
 		// Define the query.
 		$q = "INSERT INTO {$_POST['type']} VALUES ('{$_POST['hall_name']}', '{$_POST['address']}', {$_POST['num_residents']}, {$_POST['num_lounges']}, {$_POST['CA_sid_dropdown']})";
@@ -23,7 +22,6 @@
 		oci_execute($s);
 		oci_fetch($s);
 		$new_sid = oci_result($s, 'MAX') + 1;
-		echo $new_sid;
 
 		$q = "INSERT INTO Staff_Member VALUES ($new_sid, 
 			'{$_POST['name']}',
@@ -61,7 +59,6 @@
 		oci_execute($s);
 		oci_fetch($s);
 		$new_bid = oci_result($s, 'MAX') + 1;
-		echo $new_bid;
 
 		$q = "INSERT INTO Budget VALUES ($new_bid, 
 			'{$_POST['name']}',
@@ -100,7 +97,6 @@
 		foreach ($organizers_arr as &$organizer) {
     		if ($organizer != "") {
 			$q = "INSERT INTO ORGANIZES VALUES ({$organizer}, {$new_pid})";
-			echo $q . "<br>";
 			// Parse the query.
 			$s = oci_parse($c, $q);
 
@@ -165,8 +161,5 @@
 
 	// Close the connection.
 	oci_close($c);
-
-	// Return a message indicating the status.
-	echo "success";
 }
 ?>

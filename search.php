@@ -188,7 +188,6 @@
 			$q .= " AND PDATE < TO_DATE('{$_GET['event_endDate']}', 'yyyy-mm-dd')"; 
 		}
 
-		echo $q;
 
 		// Parse the query.
 		$s = oci_parse($c, $q);
@@ -243,8 +242,6 @@
 				// expense form is "outstanding" and has not been updated.
 			}
 		}
-
-		echo $q;
 
 		// Parse the query.
 		$s = oci_parse($c, $q);
