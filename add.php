@@ -73,6 +73,39 @@
 
 		// Execute the query.
 		oci_execute($s);
+	} elseif ($_POST['type'] == 'Program') {
+		$q = "SELECT MAX(PID) AS MAX FROM PROGRAM";
+		// Parse the query.
+		$s = oci_parse($c, $q);
+		// Execute the query.
+		oci_execute($s);
+		oci_fetch($s);
+		$new_pid = oci_result($s, 'MAX') + 1;
+
+		$q = "INSERT INTO PROGRAM VALUES ($new_pid, 
+			to_date('{$_POST['date']}', 'yyyy-mm-dd'),
+			'{$_POST['time']}',
+			'{$_POST['location']}',
+			'{$_POST['event_name']}',
+			{$_POST['funds_requested']})";
+		// Parse the query.
+		$s = oci_parse($c, $q);
+
+		// Execute the query.
+		oci_execute($s);
+
+		$organizers  = $_POST['sid']
+		$organizers_arr = explode(",", $organizers);
+		
+		foreach ($organizers_arr as &$organizer) {
+    		$q = "INSERT INTO ORGANIZES VALUES ({$organizer}, {$new_pid})";
+			echo $q . "<br>";
+			// Parse the query.
+			$s = oci_parse($c, $q);
+
+			// Execute the query.
+			oci_execute($s);	
+		}
 	}
 
 	// Close the connection.
