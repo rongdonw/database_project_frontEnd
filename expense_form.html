@@ -415,7 +415,19 @@
             var outstanding = $("input#outstanding").is(':checked');
             var sid = $("#sid_dropdown").val();
 
-            var dataString = 'type=Expense' + '&start_date=' + start_date + '&end_date=' + end_date + '&outstanding=' + outstanding + '&sid=' + sid;
+            var dataString = 'type=Expense';
+            if (start_date != "") {
+                dataString = dataString + "&start_date=" + start_date;
+            }
+            if (end_date !=  "") {
+                dataString = dataString + "&end_date=" + end_date;
+            }
+            if (outstanding !=  "") {
+                dataString = dataString + "&outstanding=" + outstanding;
+            }
+            if (sid !=  "") {
+                dataString = dataString + "&sid=" + sid;
+            }
 
             alert(dataString);
 
