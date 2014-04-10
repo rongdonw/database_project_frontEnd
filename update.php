@@ -15,12 +15,37 @@
 
 		// Define the query.
 		$q = "UPDATE EXPENSE_FORM SET VENDOR = '{$vendor}', EDATE = TO_DATE('{$date}', 'yyyy-mm-dd'), AMOUNT_SPENT = {$amount}, ITEMS_PURCHASED = '{$items_purchased}' WHERE FORM_NUMBER = {$form_number}";
-
 		// Parse the query.
 		$s = oci_parse($c, $q);
-
 		// Execute the query.
 		oci_execute($s);
+
+				// Define the query.
+		$q = "SELECT COUNT(*) AS NUM_BUDGETS_FOR_FORM FROM FUNDS F WHERE FORM_NUMBER = {$form_number}";
+		// Parse the query.
+		$s = oci_parse($c, $q);
+		// Execute the query.
+		oci_execute($s);
+		oci_fetch($s))
+		$num_budgets = oci_result($s, 'NUM_BUDGETS_FOR_FORM');
+		$cost_per_budget = round(floatval($amount)/$num_budgets, 2);
+
+		// Define the query.
+		$q = "SELECT BID FROM FUNDS WHERE FORM_NUMBER = {$form_number}";
+		// Parse the query.
+		$s = oci_parse($c, $q);
+		// Execute the query.
+		oci_execute($s);
+		while(oci_fetch($s)){
+			$bid = oci_result($s, 'BID');
+			// Define the query.
+			$q2 = "UPDATE BUDGET SET REMAINING_AMOUNT = REMAINING_AMOUNT - {$cost_per_budget} WHERE BID = {$bid}";
+			// Parse the query.
+			$s2 = oci_parse($c, $q2);
+			// Execute the query.
+			oci_execute($s2);
+		}
+
 	}
 
 	// Close the connection.
