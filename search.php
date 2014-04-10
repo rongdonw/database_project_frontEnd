@@ -224,14 +224,16 @@
 		}
 	} elseif ($_GET['type'] == 'Expense') {
 		// Define the query.
-		$q = "SELECT * FROM EXPENSE_FORM E JOIN USES U ON E.FORM_NUMBER = U.FORM_NUMBER";
+		$q = "SELECT * FROM EXPENSE_FORM E";
 		if (isset($_GET['form_number'])) {
-			$q .= " WHERE U.FORM_NUMBER = {$_GET['form_number']}"; 
+			$q .= " WHERE FORM_NUMBER = {$_GET['form_number']}"; 
 		}
 		else { 
-			$q .= " WHERE 1 = 1";
+			
 			if (isset($_GET['sid'])) {
-				$q .= " AND SID = {$_GET['sid']}"; 
+				$q .= " JOIN USES U ON E.FORM_NUMBER = U.FORM_NUMBER WHERE SID = {$_GET['sid']}"; 
+			} else {
+				$q .= " WHERE 1 = 1";
 			}
 			if (isset($_GET['start_date'])) {
 				$q .= " AND EDATE > TO_DATE('{$_GET['start_date']}', 'yyyy-mm-dd')"; 
