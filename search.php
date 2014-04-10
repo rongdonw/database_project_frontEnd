@@ -172,7 +172,57 @@
 			$out .= "<td>" . $remaining_amount . "</td>";
 			$out .= "<td>" . $staff_name . "</td></tr>";
 		}
+	} elseif ($_GET['type'] == 'Program') {
+		// Define the query.
+		$q = "SELECT * FROM PROGRAM P JOIN ORGANIZES O ON P.PID = O.PID WHERE 1 = 1";
+		if (isset($_GET['sid_dropdown'])) {
+			$q .= " AND SID = {$_GET['sid_dropdown']}"; 
+		}
+		if (isset($_GET['event_name'])) {
+			$q .= " AND EVENT_NAME = '{$_GET['event_name']}'"; 
+		}
+		if (isset($_GET['event_startDate'])) {
+			$q .= " AND EVENT_DATE > TO_DATE('{$_GET['event_startDate']}', 'yyyy-mm-dd')"; 
+		}
+		if (isset($_GET['event_endDate'])) {
+			$q .= " AND EVENT_DATE < TO_DATE('{$_GET['event_endDate']}', 'yyyy-mm-dd')"; 
+		}
+
+		echo $q;
+
+		// Parse the query.
+		$s = oci_parse($c, $q);
+		// Execute the query.
+		oci_execute($s);
+		while(oci_fetch($s)){
+			$organizers = "";
+
+			$pid = oci_result($s, 'PID');
+			$q2 = "SELECT NAME FROM STAFF_MEMBER S JOIN ORGANIZES O ON S.SID = O.SID WHERE O.PID = {$pid}";
+			// Parse the query.
+			$s2 = oci_parse($c, $q2);
+			// Execute the query.
+			oci_execute($s2);
+			while (oci_fetch($s2)){
+				$organizers .= trim(oci_result($s2, 'NAME')) . " ";
+			}
+
+			$event_name = trim(oci_result($s, 'EVENT_NAME'));
+			$date = trim(oci_result($s, 'DATE'));
+			$time = trim(oci_result($s, 'TIME'));
+			$location = trim(oci_result($s, 'LOCATION'));
+			$funds_requested = trim(oci_result($s, 'FUNDS_REQUESTED'));
+
+			$out .= "<tr>";
+			$out .= "<td>" . $event_name . "</td>";
+			$out .= "<td>" . $date . "</td>";
+			$out .= "<td>" . $time . "</td>";
+			$out .= "<td>" . $location . "</td>";
+			$out .= "<td>" . $funds_requested . "</td>";
+			$out .= "<td>" . $organizers . "</td></tr>";
+		}
 	}
+
 
 
 	// Close the connection.

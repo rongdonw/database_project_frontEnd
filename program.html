@@ -146,28 +146,47 @@
             </div>
         </div>
         <div class="control-group">
-        <label class="control-label" for="search_organizer_name">Organizer Name</label>
+            <label class="control-label" for="search_sid_dropdown">Organizer Name</label>    
             <div class="controls">
-                <input type="text" id="search_organizer_name" placeholder="Organizer Name">
+                <select class="form-control search_sid_dropdown"></select>
             </div>
-        </div>
-        
-        
+        </div> 
+
         <div class="control-group">
             <div class="controls">
                 <button type="button" class="btn" id="search-program-button">Search</button>
             </div>
         </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <button type="button" class="btn" id="view-all-program-button">View All</button>
+            </div>
+        </div>    
         </form>  
+
+        <div id="results">
+          <h1>Results</h1>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <td>Program Name</td>
+                <td>Date</td>
+                <td>Time</td>
+                <td>Location</td>
+                <td>Funds Requested</td>
+                <td>Organized By</td>
+              </tr>
+            </thead>
+            <tbody id="results-rows">
+
+            </tbody>
+          </table>
+        </div>
     </div>
     
 </div>
         
-    <br>
-    <div class="container" id="results"><!-- Make sure you have a results div in all your pages. From the backend, I will fill in the results div after       users click add or search. -->
-               <p>Results</p> 
-    </div>
-
       
 
 
@@ -246,6 +265,54 @@
                // .fadeIn(1500, function() {
                //   $('#message').append("Test");
                // });
+              }
+            });
+            return false;
+          });
+
+          $("#search-program-button").click(function() {
+            var event_name = $("input#search_event_name").val();
+            var event_startDate = $("input#search_event_startDate").val();
+            var event_endDate = $("input#search_event_endDate").val();
+            var sid_dropdown = $("#search_sid_dropdown").val();
+
+            var dataString = 'type=Program';
+
+            if (event_name != "") {
+                dataString = dataString + "&event_name=" + event_name;
+            }
+            if (event_startDate !=  "") {
+                dataString = dataString + "&event_startDate=" + event_startDate;
+            }
+            if (event_endDate !=  "") {
+                dataString = dataString + "&event_endDate=" + event_endDate;
+            }
+            if (sid_dropdown !=  "") {
+                dataString = dataString + "&sid_dropdown=" + sid_dropdown;
+            }
+
+            alert (dataString);
+            
+            $.ajax({
+              type: "GET",
+              url: "search.php",
+              data: dataString,
+              success: function(text) {
+                $('#results-rows').html(text);
+              }
+            });
+            return false;
+          });
+
+          $("#view-all-budget-button").click(function() {
+            var dataString = 'type=Program&all=true';
+            
+            $.ajax({
+              type: "GET",
+              url: "search.php",
+              data: dataString,
+              success: function(text) {
+                $('#results-rows').html(text);
               }
             });
             return false;

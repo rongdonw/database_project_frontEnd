@@ -98,7 +98,7 @@
 		$organizers_arr = explode(",", $organizers);
 		
 		foreach ($organizers_arr as &$organizer) {
-    	/	if ($organizer != "") {
+    		if ($organizer != "") {
 			$q = "INSERT INTO ORGANIZES VALUES ({$organizer}, {$new_pid})";
 			echo $q . "<br>";
 			// Parse the query.
@@ -106,7 +106,7 @@
 
 			// Execute the query.
 			oci_execute($s);	
-		/	}
+			}
 		}
 	}
 
