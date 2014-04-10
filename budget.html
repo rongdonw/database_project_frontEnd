@@ -229,7 +229,15 @@
             var name = $("input#name").val();
             var sid = $("#search_sid_dropdown").val();
 
-            var dataString = 'type=Budget' + '&name=' + name + "&sid=" + sid;
+            var dataString = 'type=Budget';
+
+            if (name != "") {
+                dataString = dataString + "&name=" + name;
+            }
+            if (sid !=  "") {
+                dataString = dataString + "&sid=" + sid;
+            }
+
 
             alert (dataString);
             
