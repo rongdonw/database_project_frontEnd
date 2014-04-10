@@ -71,6 +71,11 @@
     <br>
     <form class="form-horizontal" >
         <div class="control-group">
+            <div class="controls" id="error-msg" style="display:none;font-color:'red';">
+                Please fill in all fields.
+            </div>
+        </div>
+        <div class="control-group">
         <label class="control-label" for="name">Name</label>
             <div class="controls">
                 <input type="text" id="name" placeholder="Staff Name">
@@ -172,43 +177,59 @@
             </select>
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="search_room_num">Room Num</label>
-            <div class="controls">
-                <input type="number" id="search_room_num" placeholder="Room #">
-            </div>
-        </div>
         
-        <div class="radio control-group">
-            <label>
-                <input type="radio" name="staffTypeRadios" id="optionsCA" value="CA">
-                CA
-            </label>
-        </div>
-        <div class="radio control-group">
-            <label>
-            <input type="radio" name="staffTypeRadios" id="optionsRA" value="RA">
-                RA
-            </label>
+        <div class="control-group">
+            <label class="control-label">Staff Position</label>
+            <div class="radio control-group controls">
+                <label>
+                    <input type="radio" name="staffTypeRadios" id="optionsCA" value="CA" checked>
+                    CA
+                </label>
+            </div>
+            <div class="radio control-group controls">
+                <label>
+                <input type="radio" name="staffTypeRadios" id="optionsRA" value="RA">
+                    RA
+                </label>
+            </div>
         </div>
         
         <div class="control-group">
             <div class="controls">
-                <button type="button" class="btn">Search</button>
+                <button type="button" class="btn" id="search-staff-button">Search</button>
             </div>
         </div>
-            
+        <div class="control-group">
+            <div class="controls">
+                <button type="button" class="btn" id="view-all-staff-button">View All</button>
+            </div>
+        </div>    
         </form>  
+
+        <div id="results">
+          <h1>Results</h1>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <td>Name</td>
+                <td>Room Number</td>
+                <td>Phone Number</td>
+                <td>Hall Name</td>
+                <td>Position</td>
+                <td>Floors Managed</td>
+                <td>Number of Residents</td>
+                <td>CA</td>
+                <td>Purchase Card Number</td>
+              </tr>
+            </thead>
+            <tbody id="results-rows">
+
+            </tbody>
+          </table>
+        </div>
     </div>
     
-</div>
-        
-    <br>
-    <div class="container" id="results"><!-- Make sure you have a results div in all your pages. From the backend, I will fill in the results div after       users click add or search. -->
-               <p>Results</p> 
-    </div>
-
-      
+</div>      
 
 
     <!-- Le javascript
@@ -339,6 +360,56 @@
           $("#add-CA-button").click(function(){
 			addStaffRequest('CA');
 		  });
+
+          $("#search-staff-button").click(function() {
+            var name = $("input#search_staff_name").val();
+            var hall = $("input#search_hall_dropdown").val();
+            var isRAChecked = $("#optionsRA").checked;
+            var isCAChecked = $("#optionsCA").checked;
+            var staff_type;
+
+            if (isRAChecked){
+                staff_type = 'RA';
+            } else if (isCAChecked) {
+                staff_type = 'CA';
+            }
+
+            var dataString = 'type=Staff_Member' + '&staff_type=' + staff_type;
+            if (name != "") {
+                dataString = dataString + "&name=" + name;
+            }
+            if (hall !=  "") {
+                dataString = dataString + "&hall_name=" + hall;
+            }
+
+            alert (dataString);
+            
+            $.ajax({
+              type: "GET",
+              url: "search.php",
+              data: dataString,
+              success: function(text) {
+                $('#results-rows').html(text);
+              }
+            });
+            return false;
+          });
+
+          $("#view-all-staff-button").click(function() {
+            var dataString = 'type=Staff_Member&all=true';
+            alert (dataString);
+            
+            $.ajax({
+              type: "GET",
+              url: "search.php",
+              data: dataString,
+              success: function(text) {
+                $('#results-rows').html(text);
+              }
+            });
+            return false;
+          });
+
     </script>
   
 
