@@ -148,7 +148,7 @@
         <div class="control-group">
             <label class="control-label" for="search_sid_dropdown">Organizer Name</label>    
             <div class="controls">
-                <select class="form-control search_sid_dropdown"></select>
+                <select class="form-control" id="search_sid_dropdown"></select>
             </div>
         </div> 
 
@@ -222,7 +222,8 @@
             jQuery('#tabsnav li a[href="'+currentTab+'"]').parent().addClass('active');
             jQuery('#tabs > div').hide();
             jQuery(currentTab).show();
-            return false;
+            populateStaff();
+			return false;
             });
         });
             
@@ -244,14 +245,14 @@
                 sid = sid + "," + $(this).val();
             });
 
+            var dataString = 'type=Program' + '&event_name=' + event_name + '&location=' + location + '&date=' + date + '&time=' + time + '&funds_requested=' + funds_requested + '&funds_requested=' + funds_requested + '&sid=' + sid;
+
+            alert(dataString);
             if (event_name === "" || location === "" || date === "" || time === "" || funds_requested === ""|| sid === ""){
               $('#error-msg').show();
               return false;
             }
 
-            var dataString = 'type=Program' + '&event_name=' + event_name + '&location=' + location + '&date=' + date + '&time=' + time + '&funds_requested=' + funds_requested + '&funds_requested=' + funds_requested + '&sid=' + sid;
-
-            alert(dataString);
             
             $.ajax({
               type: "POST",

@@ -182,10 +182,10 @@
 			$q .= " AND EVENT_NAME = '{$_GET['event_name']}'"; 
 		}
 		if (isset($_GET['event_startDate'])) {
-			$q .= " AND EVENT_DATE > TO_DATE('{$_GET['event_startDate']}', 'yyyy-mm-dd')"; 
+			$q .= " AND PDATE > TO_DATE('{$_GET['event_startDate']}', 'yyyy-mm-dd')"; 
 		}
 		if (isset($_GET['event_endDate'])) {
-			$q .= " AND EVENT_DATE < TO_DATE('{$_GET['event_endDate']}', 'yyyy-mm-dd')"; 
+			$q .= " AND PDATE < TO_DATE('{$_GET['event_endDate']}', 'yyyy-mm-dd')"; 
 		}
 
 		echo $q;
@@ -208,7 +208,7 @@
 			}
 
 			$event_name = trim(oci_result($s, 'EVENT_NAME'));
-			$date = trim(oci_result($s, 'DATE'));
+			$date = trim(oci_result($s, 'PDATE'));
 			$time = trim(oci_result($s, 'TIME'));
 			$location = trim(oci_result($s, 'LOCATION'));
 			$funds_requested = trim(oci_result($s, 'FUNDS_REQUESTED'));
