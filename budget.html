@@ -71,6 +71,11 @@
     <br>
     <form class="form-horizontal" >
         <div class="control-group">
+            <div class="controls" id="error-msg" style="display:none;font-color:'red';">
+                Please fill in all fields.
+            </div>
+        </div>
+        <div class="control-group">
         <label class="control-label" for="name">Name</label>
             <div class="controls">
                 <input type="text" id="name" placeholder="Budget Name">
@@ -85,13 +90,15 @@
         </div>     
         <div class="control-group">
             <label class="control-label" for="sid_dropdown">Staff</label>    
-                <select class="form-control" id="sid_dropdown">
+            <div class="controls">
+            <select class="form-control" id="sid_dropdown">
             </select>
+            </div>
         </div>  
         
         <div class="control-group">
             <div class="controls">
-                <button type="button" class="btn" onclick="addBudgetRequest()">Add</button>
+                <button type="button" class="btn" id="add-budget-button">Add</button>
             </div>
         </div>
     </form>
@@ -117,20 +124,13 @@
         
         <div class="control-group">
             <div class="controls">
-                <button type="button" class="btn" onclick="searchBudgetRequest()">Search</button>
+                <button type="button" class="btn" id="search-budget-button">Search</button>
             </div>
         </div>
         </form>  
     </div>
     
-</div>
-        
-    <br>
-    <div class="container" id="results"><!-- Make sure you have a results div in all your pages. From the backend, I will fill in the results div after       users click add or search. -->
-               <p>Results</p> 
-    </div>
-
-      
+</div>     
 
 
     <!-- Le javascript
@@ -169,6 +169,36 @@
             return false;
             });
         });
+
+        $("#add-budget-button").click(function() {
+            var name = $("input#name").val();
+            var starting_amount = $("input#starting_amount").val();
+            var sid_dropdown = $("#sid_dropdown").val();
+            
+            if (name === "" || starting_amount === "" || sid_dropdown === ""){
+              $('#error-msg').show();
+              return false;
+            }
+
+            var dataString = 'type=Budget' + '&name=' + name + '&starting_amount=' + starting_amount + '&sid_dropdown=' + sid_dropdown;
+            alert(dataString);
+            
+            $.ajax({
+              type: "POST",
+              url: "add.php",
+              data: dataString,
+              success: function() {
+                $('#addBudgetDiv').html("<div id='message'></div>");
+                $('#message').html("<h2>Budget Added!</h2>")
+                .append("<p><a href='budget.html'>Add another</a></p>");
+               // .hide()
+               // .fadeIn(1500, function() {
+               //   $('#message').append("Test");
+               // });
+              }
+            });
+            return false;
+          });
             
     </script>
   

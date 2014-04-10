@@ -53,6 +53,26 @@
 			// Execute the query.
 			oci_execute($s);
 		}
+	} elseif ($_POST['type'] == 'Budget') {
+		$q = "SELECT MAX(BID) AS MAX FROM BUDGET";
+		// Parse the query.
+		$s = oci_parse($c, $q);
+		// Execute the query.
+		oci_execute($s);
+		oci_fetch($s);
+		$new_bid = oci_result($s, 'MAX') + 1;
+		echo $new_bid;
+
+		$q = "INSERT INTO Budget VALUES ($new_bid, 
+			'{$_POST['name']}',
+			{$_POST['sid_dropdown']},
+			{$_POST['starting_amount']},
+			{$_POST['starting_amount']})";
+		// Parse the query.
+		$s = oci_parse($c, $q);
+
+		// Execute the query.
+		oci_execute($s);
 	}
 
 	// Close the connection.
