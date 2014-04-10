@@ -306,7 +306,6 @@
         jQuery('#tabsnav li:first').addClass('active');
         
         jQuery('#search_other_div').hide();
-        //populateStaff();
 
         jQuery('.menu-internal').click(function(){
             jQuery('#tabsnav li').removeClass('active');
@@ -314,6 +313,15 @@
             jQuery('#tabsnav li a[href="'+currentTab+'"]').parent().addClass('active');
             jQuery('#tabs > div').hide();
             jQuery(currentTab).show();
+            if(currentTab == '#addExpenseDiv'){
+                populateStaff();
+                populateBudgets();
+                populatePrograms();
+            } else if(currentTab == '#searchExpenseDiv') {
+                populateStaff();
+            } else if(currentTab == '#editExpenseDiv'){
+                populateFormNumbers();
+            }
             return false;
             });
         });
@@ -338,17 +346,17 @@
 
         $(".add-user-button").click(function() {
             $("#users").append("<div class='controls'><select class='form-control sid_dropdown'></select></div>");
-            //populateStaff();
+            populateStaff();
         });
 
         $(".add-program-button").click(function() {
             $("#programs").append("<div class='controls'><select class='form-control pid_dropdown'></select></div>");
-            //populatePrograms();
+            populatePrograms();
         });
 
         $(".add-budget-button").click(function() {
             $("#budgets").append("<div class='controls'><select class='form-control bid_dropdown'></select></div>");
-            //populateBudgets();
+            populateBudgets();
         });
            
         $("#add-expense-button").click(function() {
