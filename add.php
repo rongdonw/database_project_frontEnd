@@ -94,17 +94,19 @@
 		// Execute the query.
 		oci_execute($s);
 
-		$organizers  = $_POST['sid']
+		$organizers  = $_POST['sid'];
 		$organizers_arr = explode(",", $organizers);
 		
 		foreach ($organizers_arr as &$organizer) {
-    		$q = "INSERT INTO ORGANIZES VALUES ({$organizer}, {$new_pid})";
+    	/	if ($organizer != "") {
+			$q = "INSERT INTO ORGANIZES VALUES ({$organizer}, {$new_pid})";
 			echo $q . "<br>";
 			// Parse the query.
 			$s = oci_parse($c, $q);
 
 			// Execute the query.
 			oci_execute($s);	
+		/	}
 		}
 	}
 
