@@ -26,7 +26,7 @@
 		$s = oci_parse($c, $q);
 		// Execute the query.
 		oci_execute($s);
-		oci_fetch($s))
+		oci_fetch($s);
 		$num_budgets = oci_result($s, 'NUM_BUDGETS_FOR_FORM');
 		$cost_per_budget = round(floatval($amount)/$num_budgets, 2);
 

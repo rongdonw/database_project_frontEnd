@@ -474,7 +474,7 @@
             var form_number = $("#form_dropdown").val();
             var vendor = $("input#vendor").val();
             var date = $("input#date").val();
-            var amount_spent = $("input#amount_spent").val();
+            var amount = $("input#amount_spent").val();
             var items_purchased = $("input#items_purchased").val();
 
             if (form_number === "" || vendor === "" || date === "" || amount === "" || items_purchased === ""){
@@ -491,7 +491,7 @@
               url: "update.php",
               data: dataString,
               success: function() {
-                $('#addExpenseDiv').html("<div id='message'></div>");
+                $('#editExpenseDiv').html("<div id='message'></div>");
                 $('#message').html("<h2>Expense Updated!</h2>")
                 .append("<p><a href='expense.html'>Add new expense</a></p>");
                // .hide()
