@@ -64,6 +64,7 @@
     <ul class="nav nav-tabs" id="tabsnav">
         <li><a href="#addExpenseDiv" class="menu-internal">Add Expense Form</a></li>
         <li><a href="#searchExpenseDiv" class="menu-internal">Search Expense Form</a></li>
+        <li><a href="#editExpenseDiv" class="menu-internal">Edit Expense Form</a></li>
     </ul>
     
     <div class='container' id='addExpenseDiv'>
@@ -83,29 +84,18 @@
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="vendor">Vendor</label>            
-            <div class="controls">
-                <input type="text" id="vendor" placeholder="Vendor">
-            </div>
-        </div> 
-        <div class="control-group">
             <label class="control-label" for="max_amount">Max Amount</label>            
             <div class="controls">
                 <span class="add-on">$</span>
                 <input class="span2" type="number" id="max_amount" placeholder="Max Amount">
             </div>
         </div>    
-        <div class="control-group">
-            <label class="control-label" for="amount_spent">Amount Spent</label>            
+
+        <div class="control-group"  id="users">
+            <label class="control-label" for="sid_dropdown">For Use By</label>    
             <div class="controls">
-                <span class="add-on">$</span>
-                <input class="span2" type="number" id="amount_spent" placeholder="Amount Spent">
-            </div>
-        </div>  
-        <div class="control-group">
-            <label class="control-label" for="items_purchased">Purchased Items</label>            
-            <div class="controls">
-                <input type="text" id="items_purchased" placeholder="Purchased Items">
+                <select class="form-control sid_dropdown"></select>
+                <button type="button" class="btn add-user-button">Add Another User</button>
             </div>
         </div> 
         
@@ -123,8 +113,11 @@
         <form class="form-horizontal" >
         
         <div class="btn-group">
-            <button type="button" class="btn btn-default" onclick="showFormNumberSearch()">By Form Number</button>
-            <button type="button" class="btn btn-default" onclick="showOtherSearch()">By Other Criteria </button>
+            <label class="control-label">Search By</label>
+            <div class="controls">
+            <button type="button" class="btn btn-default" onclick="showFormNumberSearch()">Form Number</button>
+            <button type="button" class="btn btn-default" onclick="showOtherSearch()">Other Criteria </button>
+            </div>
         </div>
         
         <br>
@@ -160,31 +153,107 @@
             </div>
         </div>
         
-        <div class="control-group">
-        <label class="control-label" for="search_staff_name">Staff Name</label>
+        <div class="control-group"  id="users">
+            <label class="control-label" for="sid_dropdown">Used By</label>    
             <div class="controls">
-                <input type="text" id="search_staff_name" placeholder="Staff Name">
+                <select class="form-control sid_dropdown"></select>
             </div>
-        </div>
-    
-        <div class="checkbox control-group">
-            <label>
-                <input type="checkbox" id="outstanding" value="">
-                OutStanding
+        </div>     
+
+        <div class="control-group">
+            <label class="control-label" for="search_outstanding">Incomplete forms only?</label>
+                <div class="radio control-group controls">
+                <label>
+                    <input type="checkbox" id="outstanding" value=""> Yes
+                </label>
+                </div>
+                
             </label>
         </div>
-            
          <div class="control-group">
             <div class="controls">
-                <button type="button" class="btn" onclick="searchExpenseFormByOtherCriteriaRequest()">Search</button>
+                <button type="button" class="btn" id="search-expense-button">Search</button>
             </div>
          </div>        
         </div>
-        
-       
+
+        <div class="control-group">
+            <div class="controls">
+                <button type="button" class="btn" id="view-all-program-button">View All</button>
+            </div>
+        </div>    
         </form>  
+
+        <div id="results">
+          <h1>Results</h1>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <td>Program Name</td>
+                <td>Date</td>
+                <td>Time</td>
+                <td>Location</td>
+                <td>Funds Requested</td>
+                <td>Organized By</td>
+              </tr>
+            </thead>
+            <tbody id="results-rows">
+
+            </tbody>
+          </table>
+        </div>
     </div>
     
+    <div class='container' id='editExpenseDiv'>
+     <h1>Edit Expense Form</h1>
+    <br>
+    <form class="form-horizontal" >
+
+
+        <div class="control-group">
+            <label class="control-label" for="vendor">Vendor</label>            
+            <div class="controls">
+                <input type="text" id="vendor" placeholder="Vendor">
+            </div>
+        </div> 
+        <div class="control-group">
+            <label class="control-label" for="amount_spent">Amount Spent</label>            
+            <div class="controls">
+                <span class="add-on">$</span>
+                <input class="span2" type="number" id="amount_spent" placeholder="Amount Spent">
+            </div>
+        </div>  
+        <div class="control-group">
+            <label class="control-label" for="items_purchased">Purchased Items</label>            
+            <div class="controls">
+                <input type="text" id="items_purchased" placeholder="Purchased Items">
+            </div>
+        </div>
+
+        <div class="control-group"  id="programs">
+            <label class="control-label" for="pid_dropdown">Paid For</label>    
+            <div class="controls">
+                <select class="form-control pid_dropdown"></select>
+                <button type="button" class="btn add-program-button">Add Another Program</button>
+            </div>
+        </div>
+
+        <div class="control-group"  id="budgets">
+            <label class="control-label" for="bid_dropdown">Funded By</label>    
+            <div class="controls">
+                <select class="form-control bid_dropdown"></select>
+                <button type="button" class="btn add-budget-button">Add Another Budget</button>
+            </div>
+        </div>       
+        
+        <div class="control-group">
+            <div class="controls">
+                <button type="button" class="btn" id="edit-expense-button">Save</button>
+            </div>
+        </div>
+    </form>
+    </div>
+
 </div>
         
     <br>
@@ -221,7 +290,7 @@
         jQuery('#tabsnav li:first').addClass('active');
         
         jQuery('#search_other_div').hide();
-        
+        //populateStaff();
 
         jQuery('.menu-internal').click(function(){
             jQuery('#tabsnav li').removeClass('active');
@@ -250,6 +319,21 @@
             jQuery('#search_other_div').show();
             
         }
+
+        $(".add-user-button").click(function() {
+            $("#users").append("<div class='controls'><select class='form-control sid_dropdown'></select></div>");
+            //populateStaff();
+        });
+
+        $(".add-program-button").click(function() {
+            $("#programs").append("<div class='controls'><select class='form-control pid_dropdown'></select></div>");
+            //populatePrograms();
+        });
+
+        $(".add-budget-button").click(function() {
+            $("#budgets").append("<div class='controls'><select class='form-control bid_dropdown'></select></div>");
+            //populateBudgets();
+        });
             
     </script>
   

@@ -264,6 +264,45 @@ function populateCAs(){
     http.send(null);
 }
 
+function populatePrograms(){
+    var http = createRequestObject();
+    
+    // example of a get request for funds_requested = 150
+    http.open('get', 'populate.php?type=Program&label=EVENT_NAME&value=PID',true);
+    http.onreadystatechange = function(){
+        if(http.readyState == 4){
+            // Assign the returned value to the document object.
+            var alldropdowns = document.getElementsByClassName('pid_dropdown');
+            if (alldropdowns != null){
+                for (var i = 0; i < alldropdowns.length; i++) {
+                    var d = alldropdowns[i];
+                    d.innerHTML = "<option value='none'>None</option>" + http.responseText;
+                }
+            }
+        }
+    }
+    http.send(null);
+}
+
+function populateBudgets(){
+    var http = createRequestObject();
+    // example of a get request for funds_requested = 150
+    http.open('get', 'populate.php?type=Budget&label=NAME&value=BID',true);
+    http.onreadystatechange = function(){
+        if(http.readyState == 4){
+            // Assign the returned value to the document object.
+            var alldropdowns = document.getElementsByClassName('bid_dropdown');
+            if (alldropdowns != null){
+                for (var i = 0; i < alldropdowns.length; i++) {
+                    var d = alldropdowns[i];
+                    d.innerHTML = "<option value='none'>None</option>" + http.responseText;
+                }
+            }
+        }
+    }
+    http.send(null);
+}
+
 
 
 
