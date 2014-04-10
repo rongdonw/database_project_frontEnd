@@ -174,9 +174,11 @@
 		}
 	} elseif ($_GET['type'] == 'Program') {
 		// Define the query.
-		$q = "SELECT * FROM PROGRAM P JOIN ORGANIZES O ON P.PID = O.PID WHERE 1 = 1";
+		$q = "SELECT * FROM PROGRAM P";
 		if (isset($_GET['sid_dropdown'])) {
-			$q .= " AND SID = {$_GET['sid_dropdown']}"; 
+			$q .= " JOIN ORGANIZES O ON P.PID = O.PID WHERE 1 = 1 AND SID = {$_GET['sid_dropdown']}"; 
+		} else {
+			$q .= " WHERE 1 = 1";
 		}
 		if (isset($_GET['event_name'])) {
 			$q .= " AND EVENT_NAME = '{$_GET['event_name']}'"; 
