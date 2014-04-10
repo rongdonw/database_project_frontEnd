@@ -71,6 +71,11 @@
     <br>
     <form class="form-horizontal" >
         <div class="control-group">
+            <div class="controls" id="error-msg" style="display:none;font-color:'red';">
+                Please fill in all fields.
+            </div>
+        </div>
+        <div class="control-group">
         <label class="control-label" for="event_name">Event Name</label>
             <div class="controls">
                 <input type="text" id="event_name" placeholder="Event Name">
@@ -204,9 +209,49 @@
             
 
         $(".add-organizer-button").click(function() {
-            $("#organizers").append("<div class='controls'><select class='form-control sid_dropdown'></select><button type='button' class='btn add-organizer-button'>Add Another Organizer</button></div>");
+            $("#organizers").append("<div class='controls'><select class='form-control sid_dropdown'></select></div>");
             populateStaff();
           });
+
+        $("#add-program-button").click(function() {
+            var event_name = $("input#event_name").val();
+            var location = $("input#location").val();
+            var date = $("input#date").val();
+            var time = $("input#time").val();
+            var funds_requested = $("input#funds_requested").val();
+
+            var sid = "";
+            $(".sid_dropdown").each(function( index ) {
+                sid = sid + "," + $(this).val();
+            });
+
+            if (event_name === "" || location === "" || date === "" || time === "" || funds_requested === ""|| sid === ""){
+              $('#error-msg').show();
+              return false;
+            }
+
+            var dataString = 'type=Program' + '&event_name=' + event_name + '&location=' + location + '&date=' + date + '&time=' + time + '&funds_requested=' + funds_requested + '&funds_requested=' + funds_requested + '&sid=' + sid;
+
+            alert(dataString);
+            
+            $.ajax({
+              type: "POST",
+              url: "add.php",
+              data: dataString,
+              success: function() {
+                $('#addProgramDiv').html("<div id='message'></div>");
+                $('#message').html("<h2>Program Added!</h2>")
+                .append("<p><a href='program.html'>Add another</a></p>");
+               // .hide()
+               // .fadeIn(1500, function() {
+               //   $('#message').append("Test");
+               // });
+              }
+            });
+            return false;
+          });
+
+
     </script>
   
 
