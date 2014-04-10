@@ -223,7 +223,7 @@
 		}
 	} elseif ($_GET['type'] == 'Expense') {
 		// Define the query.
-		$q = "SELECT * FROM EXPENSE E JOIN USES U ON E.FORM_NUMBER = U.FORM_NUMBER";
+		$q = "SELECT * FROM EXPENSE_FORM E JOIN USES U ON E.FORM_NUMBER = U.FORM_NUMBER";
 		if (isset($_GET['form_number'])) {
 			$q .= " WHERE FORM_NUMBER = {$_GET['form_number']}"; 
 		}
