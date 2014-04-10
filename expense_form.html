@@ -474,7 +474,7 @@
             var form_number = $("#form_dropdown").val();
             var vendor = $("input#vendor").val();
             var date = $("input#date").val();
-            var amount = $("input#amount").val();
+            var amount_spent = $("input#amount_spent").val();
             var items_purchased = $("input#items_purchased").val();
 
             if (form_number === "" || vendor === "" || date === "" || amount === "" || items_purchased === ""){
@@ -482,7 +482,7 @@
               return false;
             }
 
-            var dataString = 'type=Expense' + '&form_number=' + form_number + '&vendor=' + vendor + '&date=' + date + '&amount=' + amount;
+            var dataString = 'type=Expense' + '&form_number=' + form_number + '&vendor=' + vendor + '&date=' + date + '&amount=' + amount + '&items_purchased=' + items_purchased;
 
             alert(dataString);
             
