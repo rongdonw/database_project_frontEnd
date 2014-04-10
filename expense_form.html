@@ -304,8 +304,10 @@
         jQuery('#tabs > div').hide(); // hide all child divs
         jQuery('#tabs div:first').show(); // show first child dive
         jQuery('#tabsnav li:first').addClass('active');
-        
         jQuery('#search_other_div').hide();
+        populateStaff();
+        populateBudgets();
+        populatePrograms();
 
         jQuery('.menu-internal').click(function(){
             jQuery('#tabsnav li').removeClass('active');

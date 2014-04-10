@@ -6,7 +6,7 @@
 
 	$out = "";	
 
-	if ($_GET['type'] == 'Residence_Hall' || $_GET['type'] == 'Staff_Member' || $_GET['type'] == 'Program' || $_GET['type'] == 'Budget' || $_GET['type'] == 'Expense') {
+	if ($_GET['type'] == 'Residence_Hall' || $_GET['type'] == 'Staff_Member' || $_GET['type'] == 'Program' || $_GET['type'] == 'Budget' || $_GET['type'] == 'Expense_Form') {
 		// Define the query.
 		$q = "SELECT {$_GET['label']}, {$_GET['value']} FROM {$_GET['type']}";
 
