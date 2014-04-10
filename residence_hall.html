@@ -122,7 +122,12 @@
     <div class='container' id='searchResidenceDiv'>
         <h1>Search Residence Hall</h1>
         <br>
-        <form class="form-horizontal" >
+        <form class="form-horizontal">
+          <div class="control-group">
+            <div class="controls" id="error-msg2" style="display:none;font-color:'red';">
+                Please type in a search string.
+            </div>
+          </div>
         <div class="control-group">
         <label class="control-label" for="search_hall_name">Name</label>
             <div class="controls">
@@ -132,12 +137,12 @@
         
         <div class="control-group">
             <div class="controls">
-                <button type="button" class="btn" onclick="searchResidenceRequest()">Search</button>
+                <button type="button" class="btn" id="search-residence-button">Search</button>
             </div>
         </div>
         </form>  
         <div id="results">
-          <h1>Search Residence Hall</h1>
+          <h1>Results</h1>
           <table class="table table-striped">
             <thead>
               <tr>
@@ -148,8 +153,8 @@
                 <td>CA</td>
               </tr>
             </thead>
-            <tbody class="results-rows">
-              
+            <tbody id="results-rows">
+
             </tbody>
           </table>
         </div>
@@ -227,10 +232,31 @@
               }
             });
             return false;
+          });
+
+          $("#search-residence-button").click(function() {
+            var hall = $("input#search_hall_name").val();
+
+            if (hall === "") {
+              $('#error-msg2').show();
+              return false;
+            }
+
+            var dataString = 'type=Residence_Hall' + '&hall_name=' + hall;
+            alert (dataString);
+            
+            $.ajax({
+              type: "GET",
+              url: "search.php",
+              data: dataString,
+              success: function(text) {
+                $('#results-rows').html(text);
+              }
+            });
+            return false;
 
 
           });
-
 
 
 
