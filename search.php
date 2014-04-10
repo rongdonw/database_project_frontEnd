@@ -225,7 +225,7 @@
 		// Define the query.
 		$q = "SELECT * FROM EXPENSE_FORM E JOIN USES U ON E.FORM_NUMBER = U.FORM_NUMBER";
 		if (isset($_GET['form_number'])) {
-			$q .= " WHERE FORM_NUMBER = {$_GET['form_number']}"; 
+			$q .= " WHERE U.FORM_NUMBER = {$_GET['form_number']}"; 
 		}
 		else { 
 			$q .= " WHERE 1 = 1";
@@ -305,6 +305,7 @@
 			$out .= "<td>" . $vendor . "</td>";
 			$out .= "<td>" . $max_amount . "</td>";
 			$out .= "<td>" . $amount . "</td>";
+			$out .= "<td>" . $items_purchased . "</td>";
 			$out .= "<td>" . $users . "</td>";
 			$out .= "<td>" . $budgets . "</td>";
 			$out .= "<td>" . $programs . "</td></tr>";
