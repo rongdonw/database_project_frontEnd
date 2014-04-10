@@ -53,21 +53,21 @@
 		} elseif ($_GET['staff_type'] == 'RA') {
 			$qCA = "";
 			if (isset($_GET['name']) && isset($_GET['hall_name'])) {
-				$qRA .= " WHERE NAME == '{$_GET['name']}' AND HALL_NAME == '{$_GET['hall_name']}'"; 
+				$qRA .= " WHERE NAME = '{$_GET['name']}' AND HALL_NAME = '{$_GET['hall_name']}'"; 
 			} elseif (isset($_GET['name'])) {
-				$qRA .= " WHERE NAME == '{$_GET['name']}'";
+				$qRA .= " WHERE NAME = '{$_GET['name']}'";
 			} elseif (isset($_GET['hall_name'])) {
-				$qRA .= " WHERE HALL_NAME == '{$_GET['hall_name']}'";
+				$qRA .= " WHERE HALL_NAME = '{$_GET['hall_name']}'";
 			}
 
 		} elseif ($_GET['staff_type'] == 'CA') {
 			$qRA = "";
 			if (isset($_GET['name']) && isset($_GET['hall_name'])) {
-				$qCA .= " WHERE NAME == '{$_GET['name']}' AND HALL_NAME == '{$_GET['hall_name']}'"; 
+				$qCA .= " WHERE NAME = '{$_GET['name']}' AND HALL_NAME = '{$_GET['hall_name']}'"; 
 			} elseif (isset($_GET['name'])) {
-				$qCA .= " WHERE NAME == '{$_GET['name']}'";
+				$qCA .= " WHERE NAME = '{$_GET['name']}'";
 			} elseif (isset($_GET['hall_name'])) {
-				$qCA .= " WHERE HALL_NAME == '{$_GET['hall_name']}'";
+				$qCA .= " WHERE HALL_NAME = '{$_GET['hall_name']}'";
 			}
 		}
 
