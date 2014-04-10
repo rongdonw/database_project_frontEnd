@@ -190,6 +190,7 @@
             jQuery('#tabsnav li a[href="'+currentTab+'"]').parent().addClass('active');
             jQuery('#tabs > div').hide();
             jQuery(currentTab).show();
+            populateStaff();
             return false;
             });
         });
