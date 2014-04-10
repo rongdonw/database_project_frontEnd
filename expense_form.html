@@ -206,7 +206,7 @@
 
         <div id="results">
           <h1>Results</h1>
-          <table class="table table-striped">
+          <table id="results-table" class="table table-striped tablesorter">
             <thead>
               <tr>
                 <td>Form Number</td>
@@ -233,7 +233,7 @@
     <form class="form-horizontal" >
         <div class="control-group">
             <div class="controls" id="error-msg3" style="display:none;font-color:'red';">
-                All fields require input.
+                All fields require input. 
             </div>
         </div>
 
@@ -247,7 +247,7 @@
         <div class="control-group">
             <label class="control-label" for="vendor">Vendor</label>            
             <div class="controls">
-                <input type="text" id="vendor" placeholder="Vendor">
+                <input type="text" id="vendor" placeholder="Only A-Z, 0-9, spaces">
             </div>
         </div> 
         <div class="control-group">
@@ -284,6 +284,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>
+    <script src="js/jquery.tablesorter.js"></script>
     <script src="js/bootstrap-transition.js"></script>
     <script src="js/bootstrap-alert.js"></script>
     <script src="js/bootstrap-modal.js"></script>
@@ -301,30 +302,31 @@
       
     <script>
         jQuery(document).ready(function() {
-        jQuery('#tabs > div').hide(); // hide all child divs
-        jQuery('#tabs div:first').show(); // show first child dive
-        jQuery('#tabsnav li:first').addClass('active');
-        jQuery('#search_other_div').hide();
-        populateStaff();
-        populateBudgets();
-        populatePrograms();
+            jQuery('#tabs > div').hide(); // hide all child divs
+            jQuery('#tabs div:first').show(); // show first child dive
+            jQuery('#tabsnav li:first').addClass('active');
+            jQuery('#search_other_div').hide();
+            populateStaff();
+            populateBudgets();
+            populatePrograms();
+            $("#results-table").tablesorter();
 
-        jQuery('.menu-internal').click(function(){
-            jQuery('#tabsnav li').removeClass('active');
-            var currentTab = jQuery(this).attr('href');
-            jQuery('#tabsnav li a[href="'+currentTab+'"]').parent().addClass('active');
-            jQuery('#tabs > div').hide();
-            jQuery(currentTab).show();
-            if(currentTab == '#addExpenseDiv'){
-                populateStaff();
-                populateBudgets();
-                populatePrograms();
-            } else if(currentTab == '#searchExpenseDiv') {
-                populateStaff();
-            } else if(currentTab == '#editExpenseDiv'){
-                populateFormNumbers();
-            }
-            return false;
+            jQuery('.menu-internal').click(function(){
+                jQuery('#tabsnav li').removeClass('active');
+                var currentTab = jQuery(this).attr('href');
+                jQuery('#tabsnav li a[href="'+currentTab+'"]').parent().addClass('active');
+                jQuery('#tabs > div').hide();
+                jQuery(currentTab).show();
+                if(currentTab == '#addExpenseDiv'){
+                    populateStaff();
+                    populateBudgets();
+                    populatePrograms();
+                } else if(currentTab == '#searchExpenseDiv') {
+                    populateStaff();
+                } else if(currentTab == '#editExpenseDiv'){
+                    populateFormNumbers();
+                }
+                return false;
             });
         });
         
