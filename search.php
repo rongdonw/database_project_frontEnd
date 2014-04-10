@@ -221,9 +221,95 @@
 			$out .= "<td>" . $funds_requested . "</td>";
 			$out .= "<td>" . $organizers . "</td></tr>";
 		}
+	} elseif ($_GET['type'] == 'Expense') {
+		// Define the query.
+		$q = "SELECT * FROM EXPENSE E JOIN USES U ON E.FORM_NUMBER = U.FORM_NUMBER";
+		if (isset($_GET['form_number'])) {
+			$q .= " WHERE FORM_NUMBER = {$_GET['form_number']}"; 
+		}
+		else { 
+			$q .= " WHERE 1 = 1";
+			if (isset($_GET['sid'])) {
+				$q .= " AND SID = {$_GET['sid']}"; 
+			}
+			if (isset($_GET['start_date'])) {
+				$q .= " AND EDATE > TO_DATE('{$_GET['start_date']}', 'yyyy-mm-dd')"; 
+			}
+			if (isset($_GET['end_date'])) {
+				$q .= " AND EDATE < TO_DATE('{$_GET['end_date']}', 'yyyy-mm-dd')"; 
+			}
+			if (isset($_GET['outstanding']) && $_GET['outstanding'] == true) {
+				$q .= " AND VENDOR IS NULL"; // i.e. will only be true if this
+				// expense form is "outstanding" and has not been updated.
+			}
+		}
+
+		echo $q;
+
+		// Parse the query.
+		$s = oci_parse($c, $q);
+		// Execute the query.
+		oci_execute($s);
+		while(oci_fetch($s)){
+			$users = "";
+			$programs = "";
+			$budgets = "";
+
+			$form_number = oci_result($s, 'FORM_NUMBER');
+			$q2 = "SELECT NAME FROM STAFF_MEMBER S JOIN USES U ON S.SID = U.SID WHERE U.FORM_NUMBER = {$form_number}";
+			// Parse the query.
+			$s2 = oci_parse($c, $q2);
+			// Execute the query.
+			oci_execute($s2);
+			if (oci_fetch($s2)){
+				$users .= trim(oci_result($s2, 'NAME'));
+			}
+			while (oci_fetch($s2)){
+				$users .= ", " . trim(oci_result($s2, 'NAME'));
+			}
+
+			$q2 = "SELECT NAME FROM BUDGET B JOIN FUNDS F ON B.BID = F.BID WHERE F.FORM_NUMBER = {$form_number}";
+			// Parse the query.
+			$s2 = oci_parse($c, $q2);
+			// Execute the query.
+			oci_execute($s2);
+			if (oci_fetch($s2)){
+				$budgets .= trim(oci_result($s2, 'NAME'));
+			}
+			while (oci_fetch($s2)){
+				$budgets .= ", " . trim(oci_result($s2, 'NAME'));
+			}
+
+			$q2 = "SELECT EVENT_NAME FROM PROGRAM P JOIN PAYSFOR PF ON PF.PID = P.PID WHERE PF.FORM_NUMBER = {$form_number}";
+			// Parse the query.
+			$s2 = oci_parse($c, $q2);
+			// Execute the query.
+			oci_execute($s2);
+			if (oci_fetch($s2)){
+				$programs .= trim(oci_result($s2, 'EVENT_NAME'));
+			}
+			while (oci_fetch($s2)){
+				$programs .= ", " . trim(oci_result($s2, 'EVENT_NAME'));
+			}
+
+			$date = trim(oci_result($s, 'EDATE'));
+			$vendor = trim(oci_result($s, 'VENDOR'));
+			$max_amount = trim(oci_result($s, 'MAX_AMOUNT'));
+			$amount = trim(oci_result($s, 'AMOUNT_SPENT'));
+			$items_purchased = trim(oci_result($s, 'ITEMS_PURCHASED'));
+
+
+			$out .= "<tr>";
+			$out .= "<td>" . $form_number . "</td>";
+			$out .= "<td>" . $date . "</td>";
+			$out .= "<td>" . $vendor . "</td>";
+			$out .= "<td>" . $max_amount . "</td>";
+			$out .= "<td>" . $amount . "</td>";
+			$out .= "<td>" . $users . "</td>";
+			$out .= "<td>" . $budgets . "</td>";
+			$out .= "<td>" . $programs . "</td></tr>";
+		}
 	}
-
-
 
 	// Close the connection.
 	oci_close($c);
