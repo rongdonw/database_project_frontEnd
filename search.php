@@ -229,7 +229,6 @@
 			$q .= " WHERE FORM_NUMBER = {$_GET['form_number']}"; 
 		}
 		else { 
-			
 			if (isset($_GET['sid'])) {
 				$q .= " JOIN USES U ON E.FORM_NUMBER = U.FORM_NUMBER WHERE SID = {$_GET['sid']}"; 
 			} else {
