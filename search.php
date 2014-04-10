@@ -134,7 +134,46 @@
 			}
 		}
 		
+	} elseif ($_GET['type'] == 'Budget') {
+		// Define the query.
+		$q = "SELECT * FROM BUDGET";
+		if (isset($_GET['all'])) {
+		} elseif (isset($_GET['name']) && isset($_GET['sid'])) {
+			$q .= " WHERE NAME = '{$_GET['name']}' AND SID = {$_GET['sid']}"; 
+		} elseif (isset($_GET['name'])) {
+			$q .= " WHERE NAME = '{$_GET['name']}'";
+		} elseif (isset($_GET['sid'])) {
+			$q .= " WHERE SID = {$_GET['sid']}";
+		}
+		
+		// Parse the query.
+		$s = oci_parse($c, $q);
+		// Execute the query.
+		oci_execute($s);
+		while(oci_fetch($s)){	
+			$sid = 0;
+			$sid = oci_result($s, 'SID');
+
+			$q2 = "SELECT NAME FROM STAFF_MEMBER WHERE SID = {$sid}";
+			// Parse the query.
+			$s2 = oci_parse($c, $q2);
+			// Execute the query.
+			oci_execute($s2);
+			oci_fetch($s2);
+
+			$name = trim(oci_result($s, 'NAME'));
+			$remaining_amount = trim(oci_result($s, 'REMAINING_AMOUNT'));
+			$starting_amount = trim(oci_result($s, 'STARTING_AMOUNT'));
+			$staff_name = trim(oci_result($s2, 'NAME'));
+
+			$out .= "<tr>";
+			$out .= "<td>" . $name . "</td>";
+			$out .= "<td>" . $starting_amount . "</td>";
+			$out .= "<td>" . $remaining_amount . "</td>";
+			$out .= "<td>" . $staff_name . "</td></tr>";
+		}
 	}
+
 
 	// Close the connection.
 	oci_close($c);

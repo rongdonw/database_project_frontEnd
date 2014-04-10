@@ -116,18 +116,42 @@
         </div>
             
         <div class="control-group">
-        <label class="control-label" for="search_owner_name">Belongs To</label>
+            <label class="control-label" for="search_sid_dropdown">Staff</label>    
             <div class="controls">
-                <input type="text" id="search_owner_name" placeholder="Staff Name">
+            <select class="form-control" id="search_sid_dropdown">
+            </select>
             </div>
-        </div>
+        </div>  
         
         <div class="control-group">
             <div class="controls">
                 <button type="button" class="btn" id="search-budget-button">Search</button>
             </div>
         </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <button type="button" class="btn" id="view-all-budget-button">View All</button>
+            </div>
+        </div>    
         </form>  
+
+        <div id="results">
+          <h1>Results</h1>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <td>Budget Name</td>
+                <td>Starting Amount</td>
+                <td>Remaining Amount</td>
+                <td>Belongs To</td>
+              </tr>
+            </thead>
+            <tbody id="results-rows">
+
+            </tbody>
+          </table>
+        </div>
     </div>
     
 </div>     
@@ -199,7 +223,27 @@
             });
             return false;
           });
+          
+          $("#search-budget-button").click(function() {
+            var name = $("input#name").val();
+            var sid = $("#search_sid_dropdown").val();
+
+            var dataString = 'type=Budget' + '&name=' + name + "&sid=" + sid;
+
+            alert (dataString);
             
+            $.ajax({
+              type: "GET",
+              url: "search.php",
+              data: dataString,
+              success: function(text) {
+                $('#results-rows').html(text);
+              }
+            });
+            return false;
+          });
+
+
     </script>
   
 
