@@ -131,6 +131,36 @@
 			oci_execute($s);	
 			}
 		}
+
+		$budgets  = $_POST['bid'];
+		$budgets_arr = explode(",", $budgets);
+		
+		foreach ($budgets_arr as &$budget) {
+    		if ($budget != "") {
+			$q = "INSERT INTO FUNDS VALUES ({$budget}, {$form_number})";
+			// Parse the query.
+			$s = oci_parse($c, $q);
+
+			// Execute the query.
+			oci_execute($s);	
+			}
+		}
+
+		if(isset($_POST['pid'])){
+			$programs  = $_POST['pid'];
+			$programs_arr = explode(",", $programs);
+			
+			foreach ($programs_arr as &$program) {
+	    		if ($program != "") {
+				$q = "INSERT INTO PAYSFOR VALUES ({$form_number}, {$program})";
+				// Parse the query.
+				$s = oci_parse($c, $q);
+
+				// Execute the query.
+				oci_execute($s);	
+				}
+			}
+		}
 	}
 
 	// Close the connection.

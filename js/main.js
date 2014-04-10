@@ -303,6 +303,17 @@ function populateBudgets(){
     http.send(null);
 }
 
+function populateFormNumbers(){
+    var http = createRequestObject();
+    // example of a get request for funds_requested = 150
+    http.open('get', 'populate.php?type=Expense&label=FORM_NUMBER&value=FORM_NUMBER',true);
+    http.onreadystatechange = function(){
+        if(http.readyState == 4){
+            document.getElementById('form_dropdown').innerHTML = http.responseText;
+        }
+    }
+    http.send(null);
+}
 
 
 

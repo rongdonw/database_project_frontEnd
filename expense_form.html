@@ -97,7 +97,21 @@
                 <button type="button" class="btn add-user-button">Add Another User</button>
             </div>
         </div> 
-        
+        <div class="control-group"  id="programs">
+            <label class="control-label" for="pid_dropdown">Paid For</label>    
+            <div class="controls">
+                <select class="form-control pid_dropdown"></select>
+                <button type="button" class="btn add-program-button">Add Another Program</button>
+            </div>
+        </div>
+
+        <div class="control-group"  id="budgets">
+            <label class="control-label" for="bid_dropdown">Funded By</label>    
+            <div class="controls">
+                <select class="form-control bid_dropdown"></select>
+                <button type="button" class="btn add-budget-button">Add Another Budget</button>
+            </div>
+        </div>          
         <div class="control-group">
             <div class="controls">
                 <button type="button" class="btn" onclick="addExpenseFormRequest()">Add</button>
@@ -124,12 +138,13 @@
         
         <div id="search_form_number_div">
         <div class="control-group">
-        <label class="control-label" for="search_form_number">Form Number</label>
-          <div class="control-group">
             <div class="controls" id="error-msg2" style="display:none;font-color:'red';">
                 Please type in valid search parameters.
             </div>
           </div>
+        <div class="control-group">
+        <label class="control-label" for="search_form_number">Form Number</label>
+          
             <div class="controls">
                 <input type="text" id="search_form_number" placeholder="Form #">
             </div>
@@ -218,9 +233,16 @@
     <form class="form-horizontal" >
         <div class="control-group">
             <div class="controls" id="error-msg3" style="display:none;font-color:'red';">
-                All fields (except "Paid For") require input.
+                All fields require input.
             </div>
         </div>
+
+        <div class="control-group">
+            <label class="control-label" for="form_dropdown">Form Number</label>    
+            <div class="controls">
+                <select class="form-control" id="form_dropdown"></select>
+            </div>
+        </div>  
 
         <div class="control-group">
             <label class="control-label" for="vendor">Vendor</label>            
@@ -246,23 +268,7 @@
             <div class="controls">
                 <input type="text" id="items_purchased" placeholder="Purchased Items">
             </div>
-        </div>
-
-        <div class="control-group"  id="programs">
-            <label class="control-label" for="pid_dropdown">Paid For</label>    
-            <div class="controls">
-                <select class="form-control pid_dropdown"></select>
-                <button type="button" class="btn add-program-button">Add Another Program</button>
-            </div>
-        </div>
-
-        <div class="control-group"  id="budgets">
-            <label class="control-label" for="bid_dropdown">Funded By</label>    
-            <div class="controls">
-                <select class="form-control bid_dropdown"></select>
-                <button type="button" class="btn add-budget-button">Add Another Budget</button>
-            </div>
-        </div>       
+        </div>     
         
         <div class="control-group">
             <div class="controls">
@@ -273,14 +279,6 @@
     </div>
 
 </div>
-        
-    <br>
-    <div class="container" id="results"><!-- Make sure you have a results div in all your pages. From the backend, I will fill in the results div after       users click add or search. -->
-               <p>Results</p> 
-    </div>
-
-      
-
 
     <!-- Le javascript
     ================================================== -->
@@ -362,14 +360,28 @@
                 sid = sid + "," + $(this).val();
             });
 
-            var dataString = 'type=Expense' + '&form_number=' + form_number + '&max_amount=' + max_amount + '&sid=' + sid;
+            var pid = "";
+            $(".pid_dropdown").each(function( index ) {
+                pid = pid + "," + $(this).val();
+            });
 
-            alert(dataString);
-            if (form_number === "" || max_amount === "" || sid === ""){
+            var bid = "";
+            $(".bid_dropdown").each(function( index ) {
+                bid = bid + "," + $(this).val();
+            });
+
+
+            if (form_number === "" || max_amount === "" || sid === "" || bid === ""){
               $('#error-msg').show();
               return false;
             }
+           // alert(pid);
+            var dataString = 'type=Expense' + '&form_number=' + form_number + '&max_amount=' + max_amount + '&sid=' + sid + '&bid=' + bid;
+            if (pid != ',none'){
+                dataString = dataString + "&pid=" + pid;
+            }
 
+            alert(dataString);
             
             $.ajax({
               type: "POST",
@@ -448,34 +460,24 @@
           });
 
           $("#update-expense-button").click(function() {
+            var form_number = $("#form_dropdown").val();
             var vendor = $("input#vendor").val();
             var date = $("input#date").val();
             var amount = $("input#amount").val();
             var items_purchased = $("input#items_purchased").val();
 
-            var pid = "";
-            $(".pid_dropdown").each(function( index ) {
-                pid = pid + "," + $(this).val();
-            });
-
-            var bid = "";
-            $(".bid_dropdown").each(function( index ) {
-                bid = bid + "," + $(this).val();
-            });
-
-
-            if (vendor === "" || date === "" || amount === "" || items_purchased === ""){
+            if (form_number === "" || vendor === "" || date === "" || amount === "" || items_purchased === ""){
               $('#error-msg3').show();
               return false;
             }
 
-            var dataString = 'type=Expense' + '&vendor=' + vendor + '&date=' + date + '&amount=' + amount + '&pid=' + pid + '&bid=' + bid;
+            var dataString = 'type=Expense' + '&form_number=' + form_number + '&vendor=' + vendor + '&date=' + date + '&amount=' + amount;
 
             alert(dataString);
             
             $.ajax({
               type: "POST",
-              url: "add.php",
+              url: "update.php",
               data: dataString,
               success: function() {
                 $('#addExpenseDiv').html("<div id='message'></div>");
